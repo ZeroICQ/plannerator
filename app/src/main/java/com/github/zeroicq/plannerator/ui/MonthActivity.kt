@@ -8,6 +8,7 @@ import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v7.widget.PagerSnapHelper
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.github.zeroicq.plannerator.R
@@ -53,6 +54,9 @@ class MonthActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSel
             adapter = MonthsAdapter()
             layoutManager = MonthByDayLayoutManager(this.context)
         }
+        val snapHelper = PagerSnapHelper()
+        snapHelper.attachToRecyclerView(binding.monthRecycler)
+
     }
 
     override fun onBackPressed() {
