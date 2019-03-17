@@ -14,7 +14,10 @@ import com.github.zeroicq.plannerator.R
 import com.github.zeroicq.plannerator.databinding.ActivityMonthBinding
 import com.github.zeroicq.plannerator.mvp.presenters.MonthPresenter
 import com.github.zeroicq.plannerator.mvp.views.MonthView
+import com.github.zeroicq.plannerator.ui.adapters.MonthsAdapter
+import com.github.zeroicq.plannerator.ui.layoutManagers.MonthByDayLayoutManager
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.content_month.view.*
 
 class MonthActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, MonthView {
     private lateinit var binding: ActivityMonthBinding
@@ -29,7 +32,7 @@ class MonthActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSel
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        fab.setOnClickListener { view ->
+        binding.fab.setOnClickListener { view ->
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                .setAction("Action", null).show()
             presenter.onClick()
@@ -44,6 +47,12 @@ class MonthActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSel
         toggle.syncState()
 
         binding.navView.setNavigationItemSelectedListener(this)
+
+        //recycler
+        binding.monthRecycler.apply {
+            adapter = MonthsAdapter()
+            layoutManager = MonthByDayLayoutManager(this.context)
+        }
     }
 
     override fun onBackPressed() {
