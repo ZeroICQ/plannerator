@@ -1,4 +1,4 @@
-package com.github.zeroicq.plannerator
+package com.github.zeroicq.plannerator.ui.view
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
@@ -8,10 +8,11 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.github.zeroicq.plannerator.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MonthActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +25,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
         val toggle = ActionBarDrawerToggle(
-            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            this, drawer_layout, toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         )
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
