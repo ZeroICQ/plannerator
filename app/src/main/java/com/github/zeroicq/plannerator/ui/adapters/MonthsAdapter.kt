@@ -17,7 +17,8 @@ class MonthsAdapter: RecyclerView.Adapter<MonthsAdapter.MonthHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return 4
+        //todo: rmk
+        return 10
     }
 
 
