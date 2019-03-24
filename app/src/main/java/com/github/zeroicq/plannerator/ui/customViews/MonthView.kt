@@ -1,7 +1,6 @@
 package com.github.zeroicq.plannerator.ui.customViews
 
 import android.content.Context
-import android.graphics.Color
 import android.icu.util.GregorianCalendar
 import android.support.v7.widget.AppCompatTextView
 import android.support.v7.widget.LinearLayoutCompat
@@ -11,6 +10,7 @@ import android.widget.LinearLayout
 import com.github.zeroicq.plannerator.R
 import com.github.zeroicq.plannerator.mvp.models.DayModel
 import com.github.zeroicq.plannerator.mvp.models.MonthModel
+import com.github.zeroicq.plannerator.util.monthRes
 import java.util.*
 
 class MonthView(ctxt: Context) : GridLayout(ctxt) {
@@ -20,8 +20,30 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
         layoutParams = LinearLayoutCompat.LayoutParams(
             LinearLayoutCompat.LayoutParams.MATCH_PARENT,
             LinearLayoutCompat.LayoutParams.MATCH_PARENT)
-        rowCount = 6
+        rowCount = 7
         columnCount = 7
+
+        for ((i, month) in (GregorianCalendar.MONDAY..GregorianCalendar.SATURDAY + 1).withIndex()) {
+            val constraintLayout = LinearLayout(ctxt)
+            val textView = AppCompatTextView(context)
+            val lp = GridLayout.LayoutParams(
+                GridLayout.spec(GridLayout.UNDEFINED, .1f),
+                GridLayout.spec(GridLayout.UNDEFINED, 1.0f)).apply {
+                setGravity(Gravity.FILL_HORIZONTAL or Gravity.BOTTOM)
+                rowCount = 1
+                columnCount = i+1
+            }
+
+            constraintLayout.layoutParams = lp
+            constraintLayout.setBackgroundResource(R.drawable.day_cell_border)
+            constraintLayout.gravity = Gravity.CENTER_HORIZONTAL
+            constraintLayout.setBackgroundResource(R.drawable.day_cell_border)
+
+            constraintLayout.addView(textView)
+            addView(constraintLayout)
+
+            textView.setText( if (month != GregorianCalendar.SATURDAY+1) monthRes(month) else monthRes(GregorianCalendar.SUNDAY))
+        }
 
 
         for (i in 1..6) {
@@ -30,7 +52,6 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
 
                 val textView = AppCompatTextView(context)
                 cells.add(Cell(textView))
-                constraintLayout.setBackgroundColor(Color.rgb(i*31 % 255, j*21%255, 20))
 
                 val lp = GridLayout.LayoutParams(
                     GridLayout.spec(GridLayout.UNDEFINED, 1.0f),
