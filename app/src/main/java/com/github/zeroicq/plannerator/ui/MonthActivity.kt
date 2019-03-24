@@ -51,8 +51,9 @@ class MonthActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSel
 
         //recycler
         binding.monthRecycler.apply {
-            adapter = MonthsAdapter()
+            adapter = MonthsAdapter(presenter)
             layoutManager = MonthByDayLayoutManager(this.context)
+            scrollToPosition(presenter.curMonthPos)
         }
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(binding.monthRecycler)
