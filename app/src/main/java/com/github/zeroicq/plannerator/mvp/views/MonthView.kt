@@ -7,5 +7,6 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 @StateStrategyType(value = AddToEndSingleStrategy::class)
 interface MonthView : MvpView {
     fun test()
-    fun scrollRecycler(pos: Int)
+    fun onRecylclerAdvance(amount: Int)
+    fun onRecylclerPrev(amount: Int)
 }

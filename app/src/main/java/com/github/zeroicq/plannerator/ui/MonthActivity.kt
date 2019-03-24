@@ -58,11 +58,11 @@ class MonthActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSel
             adapter = MonthsAdapter(presenter)
             layoutManager = MonthByDayLayoutManager(this.context).apply {
                 addOnScrollListener(SnapChangeListener(snapHelper) {
-                    Log.d("Plannerator", "showing ${presenter.loadedMonths[it].date.time}")
+                    Log.d("Plannerator", "showing ${presenter.loadedMonths[it+1].date.time}")
                     presenter.onMonthPosChange(it)
                 })
             }
-            scrollToPosition(presenter.curMonthPos)
+            scrollToPosition(presenter.curMonthPos - 1)
         }
 
     }
@@ -123,9 +123,13 @@ class MonthActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSel
             .setAction("Action", null).show()
     }
 
-    override fun scrollRecycler(pos: Int) {
-        binding.monthRecycler.adapter?.notifyItemRangeInserted(presenter.loadedMonths.lastIndex, 2)
-        binding.monthRecycler.adapter?.notifyItemRangeRemoved(0, 2)
-//        binding.monthRecycler.layoutManager?.scrollToPosition(pos)
+    override fun onRecylclerAdvance(amount: Int) {
+        binding.monthRecycler.adapter?.notifyItemRangeInserted(presenter.loadedMonths.lastIndex, amount)
+        binding.monthRecycler.adapter?.notifyItemRangeRemoved(0, amount)
+    }
+
+    override fun onRecylclerPrev(amount: Int) {
+        binding.monthRecycler.adapter?.notifyItemRangeRemoved(presenter.loadedMonths.size-amount, amount)
+        binding.monthRecycler.adapter?.notifyItemRangeInserted(0, amount)
     }
 }

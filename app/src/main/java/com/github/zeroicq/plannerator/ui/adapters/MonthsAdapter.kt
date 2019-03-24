@@ -1,10 +1,12 @@
 package com.github.zeroicq.plannerator.ui.adapters
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.ViewGroup
 import com.github.zeroicq.plannerator.mvp.models.MonthModel
 import com.github.zeroicq.plannerator.mvp.presenters.MonthPresenter
 import com.github.zeroicq.plannerator.ui.customViews.MonthView
+import java.util.*
 
 class MonthsAdapter(val monthPreseneter : MonthPresenter): RecyclerView.Adapter<MonthsAdapter.MonthHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, pos: Int): MonthHolder {
@@ -13,17 +15,18 @@ class MonthsAdapter(val monthPreseneter : MonthPresenter): RecyclerView.Adapter<
         return MonthHolder(v)
     }
 
-    override fun getItemCount() = monthPreseneter.loadedMonths.size
+    override fun getItemCount() = monthPreseneter.loadedMonths.size - 2
 
 
     override fun onBindViewHolder(holder: MonthHolder, pos: Int) {
 //        if (monthPreseneter.loadedMonths.size - pos <)
 
-        val prevMonth = monthPreseneter.loadedMonths.getOrNull(pos - 1)
-        val currMonth = monthPreseneter.loadedMonths[pos]
-        val nextMonth = monthPreseneter.loadedMonths.getOrNull(pos + 1)
-        if (prevMonth == null || nextMonth == null)
-            return
+        val prevMonth = monthPreseneter.loadedMonths[pos]
+        val currMonth = monthPreseneter.loadedMonths[pos+1]
+        val nextMonth = monthPreseneter.loadedMonths[pos+2]
+//        if (currMonth.date.get(GregorianCalendar.MONTH) == GregorianCalendar.JUNE) {
+//            Log.d("s", "s")
+//        }
         holder.setMonths(prevMonth, currMonth, nextMonth)
 //        notifyItemChanged(pos)
     }

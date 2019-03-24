@@ -26,15 +26,14 @@ class MonthPresenter: MvpPresenter<MonthView>() {
 
     private val LOAD_MONTHS = 10
 
-    var curMonthPos = LOAD_MONTHS / 2
+    private val LOAD_THRESHOLD = 1
+    private val LOAD_AMOUNT = 2
 
-//    private var displayMonth: GregorianCalendar
+    var curMonthPos = LOAD_MONTHS / 2
 
 
     init {
         PlanneratorApplication.graph.inject(this)
-        //load months
-//        displayMonth = GregorianCalendar.getInstance() as GregorianCalendar
         loadMonths()
     }
 
@@ -57,19 +56,25 @@ class MonthPresenter: MvpPresenter<MonthView>() {
 
     fun onMonthPosChange(pos: Int) {
         Log.d("Plannerator", "month snap pos changed to $pos")
-        curMonthPos = pos
-        if (LOAD_MONTHS - curMonthPos == 2) {
-            for (i in 1..2) {
+        curMonthPos = pos+1
+        if (LOAD_MONTHS - 1 - curMonthPos == LOAD_THRESHOLD ) {
+            for (i in 1..LOAD_AMOUNT) {
                 loadedMonths.add(monthRepository.getMonthData(loadedMonths.last().date.copyGregorian().apply {
                     add(GregorianCalendar.MONTH, 1)
                 }))
                 loadedMonths.removeAt(0)
             }
 
-            viewState.scrollRecycler(curMonthPos)
+            viewState.onRecylclerAdvance(LOAD_AMOUNT)
 
-        } else if (curMonthPos == 1) {
-            //todo: load prev
+        } else if (curMonthPos == LOAD_THRESHOLD) {
+            for (i in 1..LOAD_AMOUNT) {
+                loadedMonths.add(0, monthRepository.getMonthData(loadedMonths.first().date.copyGregorian().apply {
+                    add(GregorianCalendar.MONTH, -1)
+                }))
+                loadedMonths.removeAt(loadedMonths.lastIndex)
+            }
+            viewState.onRecylclerPrev(LOAD_AMOUNT)
         }
     }
 
