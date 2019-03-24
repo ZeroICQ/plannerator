@@ -2,11 +2,14 @@ package com.github.zeroicq.plannerator.ui.customViews
 
 import android.content.Context
 import android.graphics.Color
+import android.icu.util.GregorianCalendar
 import android.support.v7.widget.AppCompatTextView
 import android.support.v7.widget.LinearLayoutCompat
 import android.view.Gravity
 import android.widget.GridLayout
 import android.widget.LinearLayout
+import com.github.zeroicq.plannerator.R
+import com.github.zeroicq.plannerator.mvp.models.DayModel
 import com.github.zeroicq.plannerator.mvp.models.MonthModel
 import java.util.*
 
@@ -20,7 +23,6 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
         rowCount = 6
         columnCount = 7
 
-        setBackgroundColor(Color.CYAN)
 
         for (i in 1..6) {
             for (j in 1..7) {
@@ -38,6 +40,8 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
                         columnCount = j
                 }
                 constraintLayout.layoutParams = lp
+                constraintLayout.setBackgroundResource(R.drawable.day_cell_border)
+                constraintLayout.gravity = Gravity.CENTER_HORIZONTAL
 
                 constraintLayout.addView(textView)
                 addView(constraintLayout)
@@ -56,18 +60,22 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
 
         var currIndex = 0
         for (i in prevMonth.days.lastIndex - daysFromPrevMonth..prevMonth.days.lastIndex) {
-            cells[currIndex++].textView.text = prevMonth.days[i].message
+            cells[currIndex++].setData(prevMonth.days[i])
         }
 
         for (d in currMonth.days) {
-            cells[currIndex++].textView.text = d.message
+            cells[currIndex++].setData(d)
         }
 
         // 42 for 7*6 elements in grid
         for ((i, j) in (currIndex until 42).withIndex()) {
-            cells[j].textView.text = nextMonth.days[i].message
+            cells[j].setData(nextMonth.days[i])
         }
     }
 
-    class Cell(val textView: AppCompatTextView)
+    class Cell(val textView: AppCompatTextView) {
+        fun setData(dayModel: DayModel) {
+            textView.text =  dayModel.date.get(GregorianCalendar.DAY_OF_MONTH).toString()
+        }
+    }
 }
