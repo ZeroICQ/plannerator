@@ -18,9 +18,12 @@ class MonthsAdapter(val monthPreseneter : MonthPresenter): RecyclerView.Adapter<
 
     override fun onBindViewHolder(holder: MonthHolder, pos: Int) {
 //        if (monthPreseneter.loadedMonths.size - pos <)
-        val prevMonth = monthPreseneter.loadedMonths[pos - 1]
+
+        val prevMonth = monthPreseneter.loadedMonths.getOrNull(pos - 1)
         val currMonth = monthPreseneter.loadedMonths[pos]
-        val nextMonth = monthPreseneter.loadedMonths[pos + 1]
+        val nextMonth = monthPreseneter.loadedMonths.getOrNull(pos + 1)
+        if (prevMonth == null || nextMonth == null)
+            return
         holder.setMonths(prevMonth, currMonth, nextMonth)
 //        notifyItemChanged(pos)
     }

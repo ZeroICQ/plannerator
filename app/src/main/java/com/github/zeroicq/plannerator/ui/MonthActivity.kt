@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.PagerSnapHelper
+import android.util.Log
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.github.zeroicq.plannerator.R
@@ -17,8 +18,8 @@ import com.github.zeroicq.plannerator.mvp.presenters.MonthPresenter
 import com.github.zeroicq.plannerator.mvp.views.MonthView
 import com.github.zeroicq.plannerator.ui.adapters.MonthsAdapter
 import com.github.zeroicq.plannerator.ui.layoutManagers.MonthByDayLayoutManager
+import com.github.zeroicq.plannerator.ui.listeners.SnapChangeListener
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.content_month.view.*
 
 class MonthActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, MonthView {
     private lateinit var binding: ActivityMonthBinding
@@ -50,13 +51,19 @@ class MonthActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSel
         binding.navView.setNavigationItemSelectedListener(this)
 
         //recycler
-        binding.monthRecycler.apply {
-            adapter = MonthsAdapter(presenter)
-            layoutManager = MonthByDayLayoutManager(this.context)
-            scrollToPosition(presenter.curMonthPos)
-        }
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(binding.monthRecycler)
+
+        binding.monthRecycler.apply {
+            adapter = MonthsAdapter(presenter)
+            layoutManager = MonthByDayLayoutManager(this.context).apply {
+                addOnScrollListener(SnapChangeListener(snapHelper) {
+                    Log.d("Plannerator", "showing ${presenter.loadedMonths[it].date.time}")
+                    presenter.onMonthPosChange(it)
+                })
+            }
+            scrollToPosition(presenter.curMonthPos)
+        }
 
     }
 
@@ -114,5 +121,11 @@ class MonthActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSel
     override fun test() {
         Snackbar.make(binding.root, "testFunction", Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()
+    }
+
+    override fun scrollRecycler(pos: Int) {
+        binding.monthRecycler.adapter?.notifyItemRangeInserted(presenter.loadedMonths.lastIndex, 2)
+        binding.monthRecycler.adapter?.notifyItemRangeRemoved(0, 2)
+//        binding.monthRecycler.layoutManager?.scrollToPosition(pos)
     }
 }
