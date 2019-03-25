@@ -99,8 +99,11 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
     class Cell(val textView: AppCompatTextView) {
         fun setData(dayModel: DayModel, isGreyed: Boolean) {
             textView.text = dayModel.date.get(GregorianCalendar.DAY_OF_MONTH).toString()
+
             if (isGreyed)
                 textView.alpha = .2f
+            else
+                textView.alpha = 1.0f
         }
     }
 }
