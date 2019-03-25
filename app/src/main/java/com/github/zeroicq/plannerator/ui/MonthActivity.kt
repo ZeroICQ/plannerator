@@ -132,4 +132,8 @@ class MonthActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSel
         binding.monthRecycler.adapter?.notifyItemRangeRemoved(presenter.loadedMonths.size-amount, amount)
         binding.monthRecycler.adapter?.notifyItemRangeInserted(0, amount)
     }
+
+    override fun setToolBarText(text: String) {
+        binding.toolbarText.text = text
+    }
 }

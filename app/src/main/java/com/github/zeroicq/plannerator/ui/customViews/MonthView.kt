@@ -10,7 +10,7 @@ import android.widget.LinearLayout
 import com.github.zeroicq.plannerator.R
 import com.github.zeroicq.plannerator.mvp.models.DayModel
 import com.github.zeroicq.plannerator.mvp.models.MonthModel
-import com.github.zeroicq.plannerator.util.monthRes
+import com.github.zeroicq.plannerator.util.weekdayRes
 import java.util.*
 
 class MonthView(ctxt: Context) : GridLayout(ctxt) {
@@ -27,14 +27,16 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
             val constraintLayout = LinearLayout(ctxt)
             val textView = AppCompatTextView(context)
             val lp = GridLayout.LayoutParams(
-                GridLayout.spec(GridLayout.UNDEFINED, .1f),
+                GridLayout.spec(GridLayout.UNDEFINED, 0.1f),
                 GridLayout.spec(GridLayout.UNDEFINED, 1.0f)).apply {
                 setGravity(Gravity.FILL_HORIZONTAL or Gravity.BOTTOM)
                 rowCount = 1
                 columnCount = i+1
+//                height = ConstraintLayout.LayoutParams.WRAP_CONTENT
             }
 
             constraintLayout.layoutParams = lp
+
             constraintLayout.setBackgroundResource(R.drawable.day_cell_border)
             constraintLayout.gravity = Gravity.CENTER_HORIZONTAL
             constraintLayout.setBackgroundResource(R.drawable.day_cell_border)
@@ -42,7 +44,7 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
             constraintLayout.addView(textView)
             addView(constraintLayout)
 
-            textView.setText( if (month != GregorianCalendar.SATURDAY+1) monthRes(month) else monthRes(GregorianCalendar.SUNDAY))
+            textView.setText( if (month != GregorianCalendar.SATURDAY+1) weekdayRes(month) else weekdayRes(GregorianCalendar.SUNDAY))
         }
 
 
@@ -75,9 +77,9 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
         // remap indices
         startIndex  -= 2
         if (startIndex  < 0)
-            startIndex  = 6 + (startIndex  + 1)
+            startIndex  = 6 + (startIndex + 1)
 
-        val daysFromPrevMonth = startIndex  - 1
+        val daysFromPrevMonth = startIndex - 1
 
         var currIndex = 0
         for (i in prevMonth.days.lastIndex - daysFromPrevMonth..prevMonth.days.lastIndex) {
@@ -96,7 +98,7 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
 
     class Cell(val textView: AppCompatTextView) {
         fun setData(dayModel: DayModel) {
-            textView.text =  dayModel.date.get(GregorianCalendar.DAY_OF_MONTH).toString()
+            textView.text = dayModel.date.get(GregorianCalendar.DAY_OF_MONTH).toString()
         }
     }
 }

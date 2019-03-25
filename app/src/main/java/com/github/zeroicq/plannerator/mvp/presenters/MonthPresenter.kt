@@ -10,6 +10,7 @@ import com.github.zeroicq.plannerator.mvp.models.MonthModel
 import com.github.zeroicq.plannerator.mvp.views.MonthView
 import com.github.zeroicq.plannerator.repository.MonthTestRepository
 import com.github.zeroicq.plannerator.util.copyGregorian
+import com.github.zeroicq.plannerator.util.getMonthWithYearString
 import javax.inject.Inject
 
 @InjectViewState
@@ -47,7 +48,7 @@ class MonthPresenter: MvpPresenter<MonthView>() {
             loadedMonths.add(monthRepository.getMonthData(iterateMonth))
             iterateMonth.add(GregorianCalendar.MONTH, 1)
         }
-
+        viewState.setToolBarText(getMonthWithYearString(app.applicationContext, loadedMonths[curMonthPos].date))
     }
 
     fun onClick() {
@@ -57,6 +58,7 @@ class MonthPresenter: MvpPresenter<MonthView>() {
     fun onMonthPosChange(pos: Int) {
         Log.d("Plannerator", "month snap pos changed to $pos")
         curMonthPos = pos+1
+        viewState.setToolBarText(getMonthWithYearString(app.applicationContext, loadedMonths[curMonthPos].date))
         if (LOAD_MONTHS - 1 - curMonthPos == LOAD_THRESHOLD ) {
             for (i in 1..LOAD_AMOUNT) {
                 loadedMonths.add(monthRepository.getMonthData(loadedMonths.last().date.copyGregorian().apply {
@@ -76,6 +78,7 @@ class MonthPresenter: MvpPresenter<MonthView>() {
             }
             viewState.onRecylclerPrev(LOAD_AMOUNT)
         }
+
     }
 
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="monday_abbr">ПН</string>
+    <string name="tuesday_abbr">ВТ</string>
+    <string name="wednesday_abbr">СР</string>
+    <string name="thursday_abbr">ЧТ</string>
+    <string name="friday_abbr">ПТ</string>
+    <string name="saturday_abbr">СБ</string>
+    <string name="sunday_abbr">ВС</string>
+
+    <string name="monday">понедельник</string>
+    <string name="tuesday">вторник</string>
+    <string name="wednesday">среда</string>
+    <string name="thursday">четверг</string>
+    <string name="friday">пятница</string>
+    <string name="saturday">суббота</string>
+    <string name="sunday">воскресенье</string>
+
+    <string name="january">январь</string>
+    <string name="february">февраль</string>
+    <string name="march">март</string>
+    <string name="april">апрель</string>
+    <string name="may">май</string>
+    <string name="june">июнь</string>
+    <string name="july">июль</string>
+    <string name="august">август</string>
+    <string name="september">сентябрь</string>
+    <string name="october">октябярь</string>
+    <string name="november">ноябрь</string>
+    <string name="december">декабрь</string>
+</resources>

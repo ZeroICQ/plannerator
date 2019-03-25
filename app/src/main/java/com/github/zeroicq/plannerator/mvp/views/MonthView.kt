@@ -9,4 +9,6 @@ interface MonthView : MvpView {
     fun test()
     fun onRecylclerAdvance(amount: Int)
     fun onRecylclerPrev(amount: Int)
+
+    fun setToolBarText(text: String)
 }
