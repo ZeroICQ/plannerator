@@ -83,22 +83,24 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
 
         var currIndex = 0
         for (i in prevMonth.days.lastIndex - daysFromPrevMonth..prevMonth.days.lastIndex) {
-            cells[currIndex++].setData(prevMonth.days[i])
+            cells[currIndex++].setData(prevMonth.days[i], true)
         }
 
         for (d in currMonth.days) {
-            cells[currIndex++].setData(d)
+            cells[currIndex++].setData(d, false)
         }
 
         // 42 for 7*6 elements in grid
         for ((i, j) in (currIndex until 42).withIndex()) {
-            cells[j].setData(nextMonth.days[i])
+            cells[j].setData(nextMonth.days[i], true)
         }
     }
 
     class Cell(val textView: AppCompatTextView) {
-        fun setData(dayModel: DayModel) {
+        fun setData(dayModel: DayModel, isGreyed: Boolean) {
             textView.text = dayModel.date.get(GregorianCalendar.DAY_OF_MONTH).toString()
+            if (isGreyed)
+                textView.alpha = .2f
         }
     }
 }
