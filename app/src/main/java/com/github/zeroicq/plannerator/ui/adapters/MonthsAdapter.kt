@@ -1,12 +1,10 @@
 package com.github.zeroicq.plannerator.ui.adapters
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.ViewGroup
 import com.github.zeroicq.plannerator.mvp.models.MonthModel
 import com.github.zeroicq.plannerator.mvp.presenters.MonthPresenter
 import com.github.zeroicq.plannerator.ui.customViews.MonthView
-import java.util.*
 
 class MonthsAdapter(val monthPreseneter : MonthPresenter): RecyclerView.Adapter<MonthsAdapter.MonthHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, pos: Int): MonthHolder {
@@ -16,7 +14,6 @@ class MonthsAdapter(val monthPreseneter : MonthPresenter): RecyclerView.Adapter<
     }
 
     override fun getItemCount() = monthPreseneter.loadedMonths.size - 2
-
 
     override fun onBindViewHolder(holder: MonthHolder, pos: Int) {
 //        if (monthPreseneter.loadedMonths.size - pos <)

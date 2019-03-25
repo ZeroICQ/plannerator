@@ -64,7 +64,6 @@ class MonthActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSel
             }
             scrollToPosition(presenter.curMonthPos - 1)
         }
-
     }
 
     override fun onBackPressed() {

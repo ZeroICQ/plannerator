@@ -8,6 +8,7 @@ import com.github.zeroicq.plannerator.di.DaggerAppComponent
 class PlanneratorApplication : Application() {
     companion object {
         lateinit var graph: AppComponent
+        val appName = "Plannerator"
     }
 
     override fun onCreate() {

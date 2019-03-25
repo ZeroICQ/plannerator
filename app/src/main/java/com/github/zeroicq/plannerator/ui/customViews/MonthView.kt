@@ -1,12 +1,16 @@
 package com.github.zeroicq.plannerator.ui.customViews
 
 import android.content.Context
+import android.graphics.Color
 import android.icu.util.GregorianCalendar
 import android.support.v7.widget.AppCompatTextView
 import android.support.v7.widget.LinearLayoutCompat
+import android.util.Log
 import android.view.Gravity
+import android.view.View
 import android.widget.GridLayout
 import android.widget.LinearLayout
+import com.github.zeroicq.plannerator.PlanneratorApplication
 import com.github.zeroicq.plannerator.R
 import com.github.zeroicq.plannerator.mvp.models.DayModel
 import com.github.zeroicq.plannerator.mvp.models.MonthModel
@@ -32,7 +36,6 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
                 setGravity(Gravity.FILL_HORIZONTAL or Gravity.BOTTOM)
                 rowCount = 1
                 columnCount = i+1
-//                height = ConstraintLayout.LayoutParams.WRAP_CONTENT
             }
 
             constraintLayout.layoutParams = lp
@@ -65,11 +68,16 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
                 constraintLayout.layoutParams = lp
                 constraintLayout.setBackgroundResource(R.drawable.day_cell_border)
                 constraintLayout.gravity = Gravity.CENTER_HORIZONTAL
-
+                constraintLayout.setOnClickListener{onCellClick(it)}
                 constraintLayout.addView(textView)
                 addView(constraintLayout)
             }
         }
+    }
+
+    private fun onCellClick(v: View) {
+        v.setBackgroundColor(Color.CYAN)
+        Log.d(PlanneratorApplication.appName, "clicked")
     }
 
     fun updateData(prevMonth : MonthModel, currMonth: MonthModel, nextMonth: MonthModel) {
