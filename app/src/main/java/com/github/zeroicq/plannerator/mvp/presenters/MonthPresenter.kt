@@ -52,7 +52,7 @@ class MonthPresenter: MvpPresenter<MonthView>() {
     }
 
     fun onClick() {
-        viewState.test()
+//        viewState.test()
     }
 
     fun onMonthPosChange(pos: Int) {
@@ -67,7 +67,7 @@ class MonthPresenter: MvpPresenter<MonthView>() {
                 loadedMonths.removeAt(0)
             }
 
-            viewState.onRecylclerAdvance(LOAD_AMOUNT)
+            viewState.onRecyclerAdvance(LOAD_AMOUNT)
 
         } else if (curMonthPos == LOAD_THRESHOLD) {
             for (i in 1..LOAD_AMOUNT) {
@@ -76,7 +76,7 @@ class MonthPresenter: MvpPresenter<MonthView>() {
                 }))
                 loadedMonths.removeAt(loadedMonths.lastIndex)
             }
-            viewState.onRecylclerPrev(LOAD_AMOUNT)
+            viewState.onRecyclerPrev(LOAD_AMOUNT)
         }
 
     }

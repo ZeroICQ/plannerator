@@ -8,37 +8,26 @@ import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.widget.PagerSnapHelper
-import android.util.Log
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.github.zeroicq.plannerator.R
-import com.github.zeroicq.plannerator.databinding.ActivityMonthBinding
-import com.github.zeroicq.plannerator.mvp.presenters.MonthPresenter
-import com.github.zeroicq.plannerator.mvp.views.MonthView
-import com.github.zeroicq.plannerator.ui.adapters.MonthsAdapter
-import com.github.zeroicq.plannerator.ui.layoutManagers.MonthByDayLayoutManager
-import com.github.zeroicq.plannerator.ui.listeners.SnapChangeListener
+import com.github.zeroicq.plannerator.databinding.ActivityMainBinding
+import com.github.zeroicq.plannerator.mvp.presenters.MainPresenter
+import com.github.zeroicq.plannerator.mvp.views.MainView
 import kotlinx.android.synthetic.main.app_bar_main.*
 
-class MonthActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, MonthView {
-    private lateinit var binding: ActivityMonthBinding
+class MainActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, MainView {
+    private lateinit var binding: ActivityMainBinding
 
     @InjectPresenter
-    lateinit var presenter: MonthPresenter
+    lateinit var presenter: MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_month)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-
-        binding.fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-            presenter.onClick()
-        }
 
         val toggle = ActionBarDrawerToggle(
             this, binding.drawerLayout, toolbar,
@@ -49,21 +38,6 @@ class MonthActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSel
         toggle.syncState()
 
         binding.navView.setNavigationItemSelectedListener(this)
-
-        //recycler
-        val snapHelper = PagerSnapHelper()
-        snapHelper.attachToRecyclerView(binding.monthRecycler)
-
-        binding.monthRecycler.apply {
-            adapter = MonthsAdapter(presenter)
-            layoutManager = MonthByDayLayoutManager(this.context).apply {
-                addOnScrollListener(SnapChangeListener(snapHelper) {
-                    Log.d("Plannerator", "showing ${presenter.loadedMonths[it+1].date.time}")
-                    presenter.onMonthPosChange(it)
-                })
-            }
-            scrollToPosition(presenter.curMonthPos - 1)
-        }
     }
 
     override fun onBackPressed() {
@@ -120,19 +94,5 @@ class MonthActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSel
     override fun test() {
         Snackbar.make(binding.root, "testFunction", Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()
-    }
-
-    override fun onRecylclerAdvance(amount: Int) {
-        binding.monthRecycler.adapter?.notifyItemRangeInserted(presenter.loadedMonths.lastIndex, amount)
-        binding.monthRecycler.adapter?.notifyItemRangeRemoved(0, amount)
-    }
-
-    override fun onRecylclerPrev(amount: Int) {
-        binding.monthRecycler.adapter?.notifyItemRangeRemoved(presenter.loadedMonths.size-amount, amount)
-        binding.monthRecycler.adapter?.notifyItemRangeInserted(0, amount)
-    }
-
-    override fun setToolBarText(text: String) {
-        binding.toolbarText.text = text
     }
 }
