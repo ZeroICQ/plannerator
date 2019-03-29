@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.github.zeroicq.plannerator.PlanneratorApplication
 import com.github.zeroicq.plannerator.R
@@ -18,7 +19,7 @@ import com.github.zeroicq.plannerator.ui.adapters.MonthsAdapter
 import com.github.zeroicq.plannerator.ui.layoutManagers.MonthByDayLayoutManager
 import com.github.zeroicq.plannerator.ui.listeners.SnapChangeListener
 
-class MonthFragment : Fragment(), MonthView {
+class MonthFragment : MvpAppCompatFragment(), MonthView {
     private lateinit var binding: FragmentMonthBinding
 //
     @InjectPresenter
