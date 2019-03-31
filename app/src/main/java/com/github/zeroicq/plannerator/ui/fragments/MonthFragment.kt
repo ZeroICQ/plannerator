@@ -62,6 +62,6 @@ class MonthFragment : MvpAppCompatFragment(), MonthView {
     }
 
     override fun setToolBarText(text: String) {
-//        binding.toolbarText.text = text
+        binding.toolbarText.text = text
     }
 }
