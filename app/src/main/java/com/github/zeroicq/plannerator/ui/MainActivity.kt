@@ -24,7 +24,9 @@ class MainActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSele
     @InjectPresenter
     lateinit var presenter: MainPresenter
 
-    private val navigator = SupportAppNavigator(this, R.id.main_container)
+    private val navigator = SupportAppNavigator(this, R.id.main_container).apply {
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +42,8 @@ class MainActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSele
         )
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+
+        presenter.app.router.newRootScreen(MonthScreen())
 
         binding.navView.setNavigationItemSelectedListener(this)
     }
@@ -70,6 +74,10 @@ class MainActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSele
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
+        when (item.itemId) {
+            R.id.navWeek -> presenter.onWeekCommandClick()
+            R.id.navMonth -> presenter.onMonthCommandClick()
+        }
 //        when (item.itemId) {
 //            R.id.nav_camera -> {
 //                // Handle the camera action
@@ -98,5 +106,15 @@ class MainActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSele
     override fun test() {
         Snackbar.make(binding.root, "testFunction", Snackbar.LENGTH_LONG)
             .setAction("Action", null).show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.app.navigatorHolder.setNavigator(navigator)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        presenter.app.navigatorHolder.removeNavigator()
     }
 }

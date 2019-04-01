@@ -17,7 +17,7 @@ import javax.inject.Inject
 class MonthPresenter: MvpPresenter<MonthView>() {
     // DI
     @Inject
-    lateinit var app: Application
+    lateinit var app: PlanneratorApplication
 
     @Inject
     lateinit var monthRepository : MonthTestRepository
