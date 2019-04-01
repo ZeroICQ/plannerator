@@ -4,6 +4,7 @@ import android.app.Application
 import android.util.MonthDisplayHelper
 import com.github.zeroicq.plannerator.PlanneratorApplication
 import com.github.zeroicq.plannerator.repository.MonthTestRepository
+import com.github.zeroicq.plannerator.repository.WeekTestRepository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -19,5 +20,8 @@ class AppModule(val app: PlanneratorApplication) {
     @Singleton
     fun provideMonthRepository() = MonthTestRepository()
 
+    @Provides
+    @Singleton
+    fun provideWeekRepository() = WeekTestRepository()
 
 }

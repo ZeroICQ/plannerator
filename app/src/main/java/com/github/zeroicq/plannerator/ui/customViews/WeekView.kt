@@ -14,10 +14,11 @@ import com.github.zeroicq.plannerator.PlanneratorApplication
 import com.github.zeroicq.plannerator.R
 import com.github.zeroicq.plannerator.mvp.models.DayModel
 import com.github.zeroicq.plannerator.mvp.models.MonthModel
+import com.github.zeroicq.plannerator.mvp.models.WeekModel
 import com.github.zeroicq.plannerator.util.weekdayRes
 import java.util.*
 
-class MonthView(ctxt: Context) : GridLayout(ctxt) {
+class WeekView(ctxt: Context) : GridLayout(ctxt) {
     private val cells = ArrayList<Cell>()
 
     init {
@@ -51,28 +52,28 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
         }
 
 
-        for (i in 1..6) {
-            for (j in 1..7) {
-                val constraintLayout = LinearLayout(ctxt)
-
-                val textView = AppCompatTextView(context)
-                cells.add(Cell(textView))
-
-                val lp = GridLayout.LayoutParams(
-                    GridLayout.spec(GridLayout.UNDEFINED, 1.0f),
-                    GridLayout.spec(GridLayout.UNDEFINED, 1.0f)).apply {
-                        setGravity(Gravity.FILL)
-                        rowCount = i
-                        columnCount = j
-                }
-                constraintLayout.layoutParams = lp
-                constraintLayout.setBackgroundResource(R.drawable.day_cell_border)
-                constraintLayout.gravity = Gravity.CENTER_HORIZONTAL
-                constraintLayout.setOnClickListener{onCellClick(it)}
-                constraintLayout.addView(textView)
-                addView(constraintLayout)
-            }
-        }
+//        for (i in 1..6) {
+//            for (j in 1..7) {
+//                val constraintLayout = LinearLayout(ctxt)
+//
+//                val textView = AppCompatTextView(context)
+//                cells.add(Cell(textView))
+//
+//                val lp = GridLayout.LayoutParams(
+//                    GridLayout.spec(GridLayout.UNDEFINED, 1.0f),
+//                    GridLayout.spec(GridLayout.UNDEFINED, 1.0f)).apply {
+//                        setGravity(Gravity.FILL)
+//                        rowCount = i
+//                        columnCount = j
+//                }
+//                constraintLayout.layoutParams = lp
+//                constraintLayout.setBackgroundResource(R.drawable.day_cell_border)
+//                constraintLayout.gravity = Gravity.CENTER_HORIZONTAL
+//                constraintLayout.setOnClickListener{onCellClick(it)}
+//                constraintLayout.addView(textView)
+//                addView(constraintLayout)
+//            }
+//        }
     }
 
     private fun onCellClick(v: View) {
@@ -80,28 +81,28 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
         Log.d(PlanneratorApplication.appName, "clicked")
     }
 
-    fun updateData(prevMonth : MonthModel, currMonth: MonthModel, nextMonth: MonthModel) {
-        var startIndex = currMonth.firstDay.dayOfWeek
-        // remap indices
-        startIndex  -= 2
-        if (startIndex  < 0)
-            startIndex  = 6 + (startIndex + 1)
-
-        val daysFromPrevMonth = startIndex - 1
-
-        var currIndex = 0
-        for (i in prevMonth.days.lastIndex - daysFromPrevMonth..prevMonth.days.lastIndex) {
-            cells[currIndex++].setData(prevMonth.days[i], true)
-        }
-
-        for (d in currMonth.days) {
-            cells[currIndex++].setData(d, false)
-        }
-
-        // 42 for 7*6 elements in grid
-        for ((i, j) in (currIndex until 42).withIndex()) {
-            cells[j].setData(nextMonth.days[i], true)
-        }
+    fun updateData(prevWeek : WeekModel, currWeek: WeekModel, nextWeek: WeekModel) {
+//        var startIndex = currMonth.firstDay.dayOfWeek
+//        // remap indices
+//        startIndex  -= 2
+//        if (startIndex  < 0)
+//            startIndex  = 6 + (startIndex + 1)
+//
+//        val daysFromPrevMonth = startIndex - 1
+//
+//        var currIndex = 0
+//        for (i in prevMonth.days.lastIndex - daysFromPrevMonth..prevMonth.days.lastIndex) {
+//            cells[currIndex++].setData(prevMonth.days[i], true)
+//        }
+//
+//        for (d in currMonth.days) {
+//            cells[currIndex++].setData(d, false)
+//        }
+//
+//        // 42 for 7*6 elements in grid
+//        for ((i, j) in (currIndex until 7).withIndex()) {
+//            cells[j].setData(nextMonth.days[i], true)
+//        }
     }
 
     class Cell(val textView: AppCompatTextView) {

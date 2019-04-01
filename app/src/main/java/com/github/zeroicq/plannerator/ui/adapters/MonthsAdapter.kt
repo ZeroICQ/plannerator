@@ -16,7 +16,7 @@ class MonthsAdapter(val monthPreseneter : MonthPresenter): RecyclerView.Adapter<
     override fun getItemCount() = monthPreseneter.loadedMonths.size - 2
 
     override fun onBindViewHolder(holder: MonthHolder, pos: Int) {
-//        if (monthPreseneter.loadedMonths.size - pos <)
+//        if (monthPreseneter.loadedWeeks.size - pos <)
 
         val prevMonth = monthPreseneter.loadedMonths[pos]
         val currMonth = monthPreseneter.loadedMonths[pos+1]

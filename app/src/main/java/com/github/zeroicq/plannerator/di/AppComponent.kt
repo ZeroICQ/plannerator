@@ -2,6 +2,7 @@ package com.github.zeroicq.plannerator.di
 
 import com.github.zeroicq.plannerator.mvp.presenters.MainPresenter
 import com.github.zeroicq.plannerator.mvp.presenters.MonthPresenter
+import com.github.zeroicq.plannerator.mvp.presenters.WeekPresenter
 import dagger.Component
 import javax.inject.Singleton
 
@@ -11,5 +12,6 @@ interface AppComponent {
 
     fun inject(monthPresenter : MonthPresenter)
     fun inject(mainPresenter : MainPresenter)
+    fun inject(weekPresenter: WeekPresenter)
 
 }
