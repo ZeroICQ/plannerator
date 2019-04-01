@@ -2,7 +2,6 @@ package com.github.zeroicq.plannerator.ui.fragments
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.PagerSnapHelper
 import android.util.Log
 import android.view.LayoutInflater

@@ -28,4 +28,7 @@
     <string name="october">октябярь</string>
     <string name="november">ноябрь</string>
     <string name="december">декабрь</string>
+
+    <string name="month">Месяц</string>
+    <string name="week">Неделя</string>
 </resources>

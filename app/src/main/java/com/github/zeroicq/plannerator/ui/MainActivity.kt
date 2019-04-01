@@ -1,13 +1,13 @@
 package com.github.zeroicq.plannerator.ui
 
-import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.databinding.DataBindingUtil
+import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
+import android.view.Menu
+import android.view.MenuItem
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.github.zeroicq.plannerator.R
@@ -15,12 +15,16 @@ import com.github.zeroicq.plannerator.databinding.ActivityMainBinding
 import com.github.zeroicq.plannerator.mvp.presenters.MainPresenter
 import com.github.zeroicq.plannerator.mvp.views.MainView
 import kotlinx.android.synthetic.main.app_bar_main.*
+import ru.terrakok.cicerone.android.support.SupportAppNavigator
+
 
 class MainActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, MainView {
     private lateinit var binding: ActivityMainBinding
 
     @InjectPresenter
     lateinit var presenter: MainPresenter
+
+    private val navigator = SupportAppNavigator(this, R.id.main_container)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,26 +70,26 @@ class MainActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSele
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
-        when (item.itemId) {
-            R.id.nav_camera -> {
-                // Handle the camera action
-            }
-            R.id.nav_gallery -> {
-
-            }
-            R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_manage -> {
-
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
-            }
-        }
+//        when (item.itemId) {
+//            R.id.nav_camera -> {
+//                // Handle the camera action
+//            }
+//            R.id.nav_gallery -> {
+//
+//            }
+//            R.id.nav_slideshow -> {
+//
+//            }
+//            R.id.nav_manage -> {
+//
+//            }
+//            R.id.nav_share -> {
+//
+//            }
+//            R.id.nav_send -> {
+//
+//            }
+//        }
 
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true

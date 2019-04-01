@@ -51,10 +51,10 @@ dependencies {
     kapt 'com.arello-mobile:moxy-compiler:1.5.5'
 
     // RX
-    implementation 'io.reactivex:rxjava:1.1.0'
+    implementation 'io.reactivex:rxjava:1.1.10'
     implementation 'io.reactivex:rxandroid:1.1.0'
 
     // cicerone
-//    implementation 'ru.terrakok.cicerone:cicerone:5.0.0'
+    implementation 'ru.terrakok.cicerone:cicerone:4.0.0'
 
 }
