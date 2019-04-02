@@ -12,7 +12,7 @@ class WeeksAdapter(val weekPreseneter : WeekPresenter): RecyclerView.Adapter<Wee
         return WeekHolder(v)
     }
 
-    override fun getItemCount() = weekPreseneter.loadedWeeks.size - 2
+    override fun getItemCount() = weekPreseneter.loadedWeeks.size
 
     override fun onBindViewHolder(holder: WeekHolder, pos: Int) {
         val currWeek = weekPreseneter.loadedWeeks[pos]

@@ -19,6 +19,8 @@ import com.github.zeroicq.plannerator.util.weekdayRes
 
 class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
     private val daysOfWeekTitles: GridLayout
+    private val dayCells = Array<ArrayList<HourCell>>(7) { ArrayList() }
+    private val dayTitleCells = ArrayList<TitleCell>()
 
     init {
         layoutParams = LinearLayoutCompat.LayoutParams(
@@ -40,6 +42,7 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
         }
 
         addView(daysOfWeekTitles)
+
         // hour table
         val scrollView = ScrollView(ctxt)
         scrollView.overScrollMode = View.OVER_SCROLL_NEVER
@@ -61,6 +64,7 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
         gridView.columnCount = 8
         gridView.rowCount = 24
 //        gridView.setBackgroundColor(Color.RED)
+
 
         for (row in 1..24) {
             for (col in 1..8) {
@@ -90,7 +94,7 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
                 }
 //                val textView = AppCompatTextView(context)
 //                textView.text = "tst"
-////                cells.add(Cell(textView))
+////                cells.add(HourCell(textView))
 //
 //                hourCellLayout.addView(textView)
                 gridView.addView(hourCellLayout)
@@ -117,8 +121,13 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
                 setGravity(Gravity.CENTER or Gravity.BOTTOM)
             }
             dayOfWeekLayout.layoutParams = lp
+            dayOfWeekLayout.orientation = LinearLayout.VERTICAL
 
             dayOfWeekTextView.setText( if (month != GregorianCalendar.SATURDAY+1) weekdayRes(month) else weekdayRes(GregorianCalendar.SUNDAY))
+            val numberOfDayTextView = AppCompatTextView(context)
+            dayOfWeekLayout.addView(numberOfDayTextView)
+
+            dayTitleCells.add(TitleCell(numberOfDayTextView))
         }
 
         daysOfWeekTitles.addView(dayOfWeekLayout)
@@ -130,37 +139,22 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
     }
 
     fun updateData(currWeek: WeekModel) {
-//        var startIndex = currMonth.firstDay.dayOfWeek
-//        // remap indices
-//        startIndex  -= 2
-//        if (startIndex  < 0)
-//            startIndex  = 6 + (startIndex + 1)
-//
-//        val daysFromPrevMonth = startIndex - 1
-//
-//        var currIndex = 0
-//        for (i in prevMonth.days.lastIndex - daysFromPrevMonth..prevMonth.days.lastIndex) {
-//            cells[currIndex++].setData(prevMonth.days[i], true)
-//        }
-//
-//        for (d in currMonth.days) {
-//            cells[currIndex++].setData(d, false)
-//        }
-//
-//        // 42 for 7*6 elements in grid
-//        for ((i, j) in (currIndex until 7).withIndex()) {
-//            cells[j].setData(nextMonth.days[i], true)
-//        }
+        for ((i, day) in currWeek.days.withIndex()) {
+            dayTitleCells[i].setData(day)
+        }
     }
 
-    class Cell(val textView: AppCompatTextView) {
-        fun setData(dayModel: DayModel, isGreyed: Boolean) {
+    class HourCell(val textView: AppCompatTextView) {
+        fun setData(dayModel: DayModel) {
             textView.text = dayModel.date.get(GregorianCalendar.DAY_OF_MONTH).toString()
+        }
+    }
 
-            if (isGreyed)
-                textView.alpha = .2f
-            else
-                textView.alpha = 1.0f
+    class TitleCell(val dayNumberText : AppCompatTextView) {
+        fun setData(dayModel: DayModel) {
+            dayNumberText.text =  dayModel.date.get(GregorianCalendar.DAY_OF_MONTH).toString()
         }
     }
 }
+
+
