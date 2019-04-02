@@ -6,9 +6,11 @@ import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.github.zeroicq.plannerator.PlanneratorApplication
+import com.github.zeroicq.plannerator.mvp.models.DayModel
 import com.github.zeroicq.plannerator.mvp.models.MonthModel
 import com.github.zeroicq.plannerator.mvp.views.MonthView
 import com.github.zeroicq.plannerator.repository.MonthTestRepository
+import com.github.zeroicq.plannerator.ui.DayScreen
 import com.github.zeroicq.plannerator.util.copyGregorian
 import com.github.zeroicq.plannerator.util.getMonthWithYearString
 import javax.inject.Inject
@@ -79,6 +81,11 @@ class MonthPresenter: MvpPresenter<MonthView>() {
             viewState.onRecyclerPrev(LOAD_AMOUNT)
         }
 
+    }
+
+    fun onDayClick(dayModel: DayModel) {
+        Log.d(PlanneratorApplication.appName, "day was clicked in month view")
+        app.router.navigateTo(DayScreen())
     }
 
 }

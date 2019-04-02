@@ -10,6 +10,7 @@ class MonthsAdapter(val monthPresenter : MonthPresenter): RecyclerView.Adapter<M
     override fun onCreateViewHolder(parent: ViewGroup, pos: Int): MonthHolder {
 //        val inflater = LayoutInflater.from(parent.context)
         val v = MonthView(parent.context)
+        v.dayClickListener = { it -> monthPresenter.onDayClick(it) }
         return MonthHolder(v)
     }
 

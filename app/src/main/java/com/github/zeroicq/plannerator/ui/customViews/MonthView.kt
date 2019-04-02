@@ -14,10 +14,13 @@ import com.github.zeroicq.plannerator.PlanneratorApplication
 import com.github.zeroicq.plannerator.R
 import com.github.zeroicq.plannerator.mvp.models.DayModel
 import com.github.zeroicq.plannerator.mvp.models.MonthModel
+import com.github.zeroicq.plannerator.mvp.presenters.MonthPresenter
 import com.github.zeroicq.plannerator.util.weekdayRes
 import java.util.*
 
 class MonthView(ctxt: Context) : GridLayout(ctxt) {
+    var dayClickListener: ((DayModel)->Unit)? = null
+
     private val cells = ArrayList<Cell>()
 
     init {
@@ -56,7 +59,8 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
                 val constraintLayout = LinearLayout(ctxt)
 
                 val textView = AppCompatTextView(context)
-                cells.add(Cell(textView))
+                val cell = Cell(textView)
+                cells.add(cell)
 
                 val lp = GridLayout.LayoutParams(
                     GridLayout.spec(GridLayout.UNDEFINED, 1.0f),
@@ -68,15 +72,17 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
                 constraintLayout.layoutParams = lp
                 constraintLayout.setBackgroundResource(R.drawable.day_cell_border)
                 constraintLayout.gravity = Gravity.CENTER_HORIZONTAL
-                constraintLayout.setOnClickListener{onCellClick(it)}
+                constraintLayout.setOnClickListener{onCellClick(cell.dayModel)}
                 constraintLayout.addView(textView)
                 addView(constraintLayout)
             }
         }
     }
 
-    private fun onCellClick(v: View) {
+    private fun onCellClick(dayModel: DayModel?) {
         Log.d(PlanneratorApplication.appName, "clicked")
+        if (dayModel != null)
+            dayClickListener?.invoke(dayModel)
     }
 
     fun updateData(prevMonth : MonthModel, currMonth: MonthModel, nextMonth: MonthModel) {
@@ -103,8 +109,9 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
         }
     }
 
-    class Cell(val textView: AppCompatTextView) {
+    class Cell(val textView: AppCompatTextView, var dayModel: DayModel? = null) {
         fun setData(dayModel: DayModel, isGreyed: Boolean) {
+            this.dayModel = dayModel
             textView.text = dayModel.date.get(GregorianCalendar.DAY_OF_MONTH).toString()
 
             if (isGreyed)
