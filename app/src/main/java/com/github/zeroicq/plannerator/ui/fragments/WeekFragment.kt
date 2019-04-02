@@ -39,7 +39,7 @@ class WeekFragment : MvpAppCompatFragment(), WeekView {
                     presenter.onMonthPosChange(it)
                 })
             }
-            scrollToPosition(presenter.curWeekPos - 1)
+            scrollToPosition(presenter.curWeekPos)
         }
 
         return binding.root
