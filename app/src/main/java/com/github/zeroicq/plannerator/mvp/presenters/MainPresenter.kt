@@ -20,6 +20,6 @@ class MainPresenter: MvpPresenter<MainView>() {
     }
 
     fun onWeekCommandClick() = app.router.navigateTo(WeekScreen())
-    fun onMonthCommandClick() = app.router.backTo(MonthScreen())
+    fun onMonthCommandClick() = app.router.navigateTo(MonthScreen())
 
 }

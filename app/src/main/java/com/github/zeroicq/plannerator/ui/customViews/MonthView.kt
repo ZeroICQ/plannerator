@@ -34,8 +34,8 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
                 GridLayout.spec(GridLayout.UNDEFINED, 0.1f),
                 GridLayout.spec(GridLayout.UNDEFINED, 1.0f)).apply {
                 setGravity(Gravity.FILL_HORIZONTAL or Gravity.BOTTOM)
-                rowCount = 1
-                columnCount = i+1
+//                rowCount = 1
+//                columnCount = i+1
             }
 
             constraintLayout.layoutParams = lp
@@ -62,8 +62,8 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
                     GridLayout.spec(GridLayout.UNDEFINED, 1.0f),
                     GridLayout.spec(GridLayout.UNDEFINED, 1.0f)).apply {
                         setGravity(Gravity.FILL)
-                        rowCount = i
-                        columnCount = j
+//                        rowCount = i
+//                        columnCount = j
                 }
                 constraintLayout.layoutParams = lp
                 constraintLayout.setBackgroundResource(R.drawable.day_cell_border)

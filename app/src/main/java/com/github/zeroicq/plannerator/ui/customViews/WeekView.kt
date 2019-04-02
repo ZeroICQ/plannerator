@@ -5,28 +5,36 @@ import android.graphics.Color
 import android.icu.util.GregorianCalendar
 import android.support.v7.widget.AppCompatTextView
 import android.support.v7.widget.LinearLayoutCompat
+import android.util.LayoutDirection
 import android.util.Log
 import android.view.Gravity
 import android.view.View
+import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import com.github.zeroicq.plannerator.PlanneratorApplication
 import com.github.zeroicq.plannerator.R
 import com.github.zeroicq.plannerator.mvp.models.DayModel
-import com.github.zeroicq.plannerator.mvp.models.MonthModel
 import com.github.zeroicq.plannerator.mvp.models.WeekModel
 import com.github.zeroicq.plannerator.util.weekdayRes
-import java.util.*
 
-class WeekView(ctxt: Context) : GridLayout(ctxt) {
-    private val cells = ArrayList<Cell>()
+class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
+    private val daysOfWeekTitles: GridLayout
 
     init {
         layoutParams = LinearLayoutCompat.LayoutParams(
             LinearLayoutCompat.LayoutParams.MATCH_PARENT,
             LinearLayoutCompat.LayoutParams.MATCH_PARENT)
-        rowCount = 1
-        columnCount = 8
+        orientation = VERTICAL
+
+        daysOfWeekTitles = GridLayout(ctxt)
+        daysOfWeekTitles.rowCount = 1
+        daysOfWeekTitles.columnCount = 7
+
+        daysOfWeekTitles.layoutParams = LinearLayoutCompat.LayoutParams(
+            LinearLayoutCompat.LayoutParams.MATCH_PARENT,
+            LinearLayoutCompat.LayoutParams.WRAP_CONTENT)
 
         for ((i, month) in (GregorianCalendar.MONDAY..GregorianCalendar.SATURDAY + 1).withIndex()) {
             val constraintLayout = LinearLayout(ctxt)
@@ -35,8 +43,6 @@ class WeekView(ctxt: Context) : GridLayout(ctxt) {
                 GridLayout.spec(GridLayout.UNDEFINED, 0.1f),
                 GridLayout.spec(GridLayout.UNDEFINED, 1.0f)).apply {
                 setGravity(Gravity.FILL_HORIZONTAL or Gravity.BOTTOM)
-                rowCount = 1
-                columnCount = i+1
             }
 
             constraintLayout.layoutParams = lp
@@ -46,34 +52,55 @@ class WeekView(ctxt: Context) : GridLayout(ctxt) {
             constraintLayout.setBackgroundResource(R.drawable.day_cell_border)
 
             constraintLayout.addView(textView)
-            addView(constraintLayout)
-
             textView.setText( if (month != GregorianCalendar.SATURDAY+1) weekdayRes(month) else weekdayRes(GregorianCalendar.SUNDAY))
+            daysOfWeekTitles.addView(constraintLayout)
         }
 
+        addView(daysOfWeekTitles)
+//        addView(AppCompatTextView(ctxt).apply { text="text" })
+        val scrollView = ScrollView(ctxt)
+        scrollView.overScrollMode = View.OVER_SCROLL_NEVER
+        scrollView.layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT)
 
-//        for (i in 1..6) {
-//            for (j in 1..7) {
-//                val constraintLayout = LinearLayout(ctxt)
-//
-//                val textView = AppCompatTextView(context)
+        scrollView.setBackgroundColor(Color.GRAY)
+        scrollView.isFillViewport = true
+
+
+        val gridView = GridLayout(ctxt)
+        gridView.layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT)
+
+        gridView.columnCount = 7
+        gridView.rowCount = 24
+//        gridView.setBackgroundColor(Color.RED)
+
+        for (row in 1..24) {
+            for (col in 1..7) {
+                val constraintLayout = LinearLayout(ctxt)
+
+                val textView = AppCompatTextView(context)
+                textView.text = "tst"
 //                cells.add(Cell(textView))
-//
-//                val lp = GridLayout.LayoutParams(
-//                    GridLayout.spec(GridLayout.UNDEFINED, 1.0f),
-//                    GridLayout.spec(GridLayout.UNDEFINED, 1.0f)).apply {
+
+                val lp = GridLayout.LayoutParams(
+                    GridLayout.spec(GridLayout.UNDEFINED, 1.0f),
+                    GridLayout.spec(GridLayout.UNDEFINED, 1.0f)).apply {
 //                        setGravity(Gravity.FILL)
-//                        rowCount = i
-//                        columnCount = j
-//                }
-//                constraintLayout.layoutParams = lp
-//                constraintLayout.setBackgroundResource(R.drawable.day_cell_border)
-//                constraintLayout.gravity = Gravity.CENTER_HORIZONTAL
+                }
+                constraintLayout.layoutParams = lp
+                constraintLayout.minimumHeight = 200
+                constraintLayout.setBackgroundResource(R.drawable.day_cell_border)
+                constraintLayout.gravity = Gravity.CENTER
 //                constraintLayout.setOnClickListener{onCellClick(it)}
-//                constraintLayout.addView(textView)
-//                addView(constraintLayout)
-//            }
-//        }
+                constraintLayout.addView(textView)
+                gridView.addView(constraintLayout)
+            }
+        }
+        scrollView.addView(gridView)
+        addView(scrollView)
     }
 
     private fun onCellClick(v: View) {

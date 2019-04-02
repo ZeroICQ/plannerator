@@ -43,7 +43,8 @@ class MainActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSele
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        presenter.app.router.newRootScreen(MonthScreen())
+//        presenter.app.router.newRootScreen(MonthScreen())
+        presenter.app.router.newRootScreen(WeekScreen())
 
         binding.navView.setNavigationItemSelectedListener(this)
     }
