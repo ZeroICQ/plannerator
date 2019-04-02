@@ -19,7 +19,7 @@ class MainPresenter: MvpPresenter<MainView>() {
         PlanneratorApplication.graph.inject(this)
     }
 
-    fun onWeekCommandClick() = app.router.navigateTo(WeekScreen())
-    fun onMonthCommandClick() = app.router.navigateTo(MonthScreen())
+    fun onWeekCommandClick() = app.router.replaceScreen(WeekScreen())
+    fun onMonthCommandClick() = app.router.replaceScreen(MonthScreen())
 
 }
