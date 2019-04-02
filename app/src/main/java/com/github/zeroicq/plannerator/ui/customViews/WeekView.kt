@@ -25,8 +25,8 @@ class WeekView(ctxt: Context) : GridLayout(ctxt) {
         layoutParams = LinearLayoutCompat.LayoutParams(
             LinearLayoutCompat.LayoutParams.MATCH_PARENT,
             LinearLayoutCompat.LayoutParams.MATCH_PARENT)
-        rowCount = 7
-        columnCount = 7
+        rowCount = 1
+        columnCount = 8
 
         for ((i, month) in (GregorianCalendar.MONDAY..GregorianCalendar.SATURDAY + 1).withIndex()) {
             val constraintLayout = LinearLayout(ctxt)
@@ -81,7 +81,7 @@ class WeekView(ctxt: Context) : GridLayout(ctxt) {
         Log.d(PlanneratorApplication.appName, "clicked")
     }
 
-    fun updateData(prevWeek : WeekModel, currWeek: WeekModel, nextWeek: WeekModel) {
+    fun updateData(currWeek: WeekModel) {
 //        var startIndex = currMonth.firstDay.dayOfWeek
 //        // remap indices
 //        startIndex  -= 2

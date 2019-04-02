@@ -18,7 +18,7 @@ class WeekPresenter: MvpPresenter<WeekView>() {
     lateinit var app: PlanneratorApplication
 
     @Inject
-    lateinit var monthRepository : WeekTestRepository
+    lateinit var weekRepository : WeekTestRepository
 
     // properties
     lateinit var loadedWeeks: ArrayList<WeekModel>
@@ -29,7 +29,6 @@ class WeekPresenter: MvpPresenter<WeekView>() {
     private val LOAD_AMOUNT = 2
 
     var curWeekPos = LOAD_WEEKS / 2
-
 
     init {
         PlanneratorApplication.graph.inject(this)
@@ -43,7 +42,7 @@ class WeekPresenter: MvpPresenter<WeekView>() {
 
         loadedWeeks = ArrayList()
         for (i in 1..LOAD_WEEKS) {
-            loadedWeeks.add(monthRepository.getWeekData(iterateWeek))
+            loadedWeeks.add(weekRepository.getWeekData(iterateWeek))
             iterateWeek.add(GregorianCalendar.WEEK_OF_YEAR, 1)
         }
 //        viewState.setToolBarText(getMonthWithYearString(app.applicationContext, loadedWeeks[curWeekPos].date))
@@ -54,12 +53,12 @@ class WeekPresenter: MvpPresenter<WeekView>() {
     }
 
     fun onMonthPosChange(pos: Int) {
-        Log.d("Plannerator", "week snap pos changed to $pos")
+        Log.d(PlanneratorApplication.appName, "week snap pos changed to $pos")
         curWeekPos = pos+1
 //        viewState.setToolBarText(getMonthWithYearString(app.applicationContext, loadedWeeks[curWeekPos].date))
         if (LOAD_WEEKS - 1 - curWeekPos == LOAD_THRESHOLD ) {
             for (i in 1..LOAD_AMOUNT) {
-                loadedWeeks.add(monthRepository.getWeekData(loadedWeeks.last().date.copyGregorian().apply {
+                loadedWeeks.add(weekRepository.getWeekData(loadedWeeks.last().date.copyGregorian().apply {
                     add(GregorianCalendar.WEEK_OF_YEAR, 1)
                 }))
                 loadedWeeks.removeAt(0)
@@ -69,7 +68,7 @@ class WeekPresenter: MvpPresenter<WeekView>() {
 
         } else if (curWeekPos == LOAD_THRESHOLD) {
             for (i in 1..LOAD_AMOUNT) {
-                loadedWeeks.add(0, monthRepository.getWeekData(loadedWeeks.first().date.copyGregorian().apply {
+                loadedWeeks.add(0, weekRepository.getWeekData(loadedWeeks.first().date.copyGregorian().apply {
                     add(GregorianCalendar.WEEK_OF_YEAR, -1)
                 }))
                 loadedWeeks.removeAt(loadedWeeks.lastIndex)

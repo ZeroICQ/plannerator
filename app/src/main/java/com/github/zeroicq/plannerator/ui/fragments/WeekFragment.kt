@@ -16,6 +16,7 @@ import com.github.zeroicq.plannerator.mvp.presenters.WeekPresenter
 import com.github.zeroicq.plannerator.mvp.views.WeekView
 import com.github.zeroicq.plannerator.ui.adapters.WeeksAdapter
 import com.github.zeroicq.plannerator.ui.layoutManagers.MonthByDayLayoutManager
+import com.github.zeroicq.plannerator.ui.layoutManagers.WeekByDayLayoutManager
 import com.github.zeroicq.plannerator.ui.listeners.SnapChangeListener
 
 class WeekFragment : MvpAppCompatFragment(), WeekView {
@@ -32,7 +33,7 @@ class WeekFragment : MvpAppCompatFragment(), WeekView {
         // recycler
         binding.weekRecycler.apply {
             adapter = WeeksAdapter(presenter)
-            layoutManager = MonthByDayLayoutManager(this.context).apply {
+            layoutManager = WeekByDayLayoutManager(this.context).apply {
                 addOnScrollListener(SnapChangeListener(snapHelper) {
                     Log.d(PlanneratorApplication.appName, "showing ${presenter.loadedWeeks[it+1].date.time}")
                     presenter.onMonthPosChange(it)
