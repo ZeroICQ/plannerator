@@ -76,7 +76,6 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
     }
 
     private fun onCellClick(v: View) {
-//        v.setBackgroundColor(Color.CYAN)
         Log.d(PlanneratorApplication.appName, "clicked")
     }
 

@@ -9,6 +9,7 @@ import com.github.zeroicq.plannerator.mvp.models.WeekModel
 import com.github.zeroicq.plannerator.mvp.views.WeekView
 import com.github.zeroicq.plannerator.repository.WeekTestRepository
 import com.github.zeroicq.plannerator.util.copyGregorian
+import com.github.zeroicq.plannerator.util.getMonthWithYearString
 import javax.inject.Inject
 
 @InjectViewState
@@ -45,7 +46,7 @@ class WeekPresenter: MvpPresenter<WeekView>() {
             loadedWeeks.add(weekRepository.getWeekData(iterateWeek))
             iterateWeek.add(GregorianCalendar.WEEK_OF_YEAR, 1)
         }
-//        viewState.setToolBarText(getMonthWithYearString(app.applicationContext, loadedWeeks[curWeekPos].date))
+        viewState.setToolBarText(getMonthWithYearString(app.applicationContext, loadedWeeks[curWeekPos].date))
     }
 
     fun onClick() {
@@ -55,7 +56,7 @@ class WeekPresenter: MvpPresenter<WeekView>() {
     fun onMonthPosChange(pos: Int) {
         Log.d(PlanneratorApplication.appName, "week snap pos changed to $pos")
         curWeekPos = pos+1
-//        viewState.setToolBarText(getMonthWithYearString(app.applicationContext, loadedWeeks[curWeekPos].date))
+        viewState.setToolBarText(getMonthWithYearString(app.applicationContext, loadedWeeks[curWeekPos].date))
         if (LOAD_WEEKS - 1 - curWeekPos == LOAD_THRESHOLD ) {
             for (i in 1..LOAD_AMOUNT) {
                 loadedWeeks.add(weekRepository.getWeekData(loadedWeeks.last().date.copyGregorian().apply {
@@ -77,5 +78,6 @@ class WeekPresenter: MvpPresenter<WeekView>() {
         }
 
     }
+
 
 }

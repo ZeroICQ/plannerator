@@ -6,21 +6,21 @@ import com.github.zeroicq.plannerator.mvp.models.MonthModel
 import com.github.zeroicq.plannerator.mvp.presenters.MonthPresenter
 import com.github.zeroicq.plannerator.ui.customViews.MonthView
 
-class MonthsAdapter(val monthPreseneter : MonthPresenter): RecyclerView.Adapter<MonthsAdapter.MonthHolder>() {
+class MonthsAdapter(val monthPresenter : MonthPresenter): RecyclerView.Adapter<MonthsAdapter.MonthHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, pos: Int): MonthHolder {
 //        val inflater = LayoutInflater.from(parent.context)
         val v = MonthView(parent.context)
         return MonthHolder(v)
     }
 
-    override fun getItemCount() = monthPreseneter.loadedMonths.size - 2
+    override fun getItemCount() = monthPresenter.loadedMonths.size - 2
 
     override fun onBindViewHolder(holder: MonthHolder, pos: Int) {
-//        if (monthPreseneter.loadedWeeks.size - pos <)
+//        if (monthPresenter.loadedWeeks.size - pos <)
 
-        val prevMonth = monthPreseneter.loadedMonths[pos]
-        val currMonth = monthPreseneter.loadedMonths[pos+1]
-        val nextMonth = monthPreseneter.loadedMonths[pos+2]
+        val prevMonth = monthPresenter.loadedMonths[pos]
+        val currMonth = monthPresenter.loadedMonths[pos+1]
+        val nextMonth = monthPresenter.loadedMonths[pos+2]
 //        if (currMonth.date.get(GregorianCalendar.MONTH) == GregorianCalendar.JUNE) {
 //            Log.d("s", "s")
 //        }

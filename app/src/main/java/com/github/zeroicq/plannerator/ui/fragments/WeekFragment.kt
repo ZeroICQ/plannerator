@@ -54,4 +54,8 @@ class WeekFragment : MvpAppCompatFragment(), WeekView {
         binding.weekRecycler.adapter?.notifyItemRangeRemoved(presenter.loadedWeeks.size - amount, amount)
         binding.weekRecycler.adapter?.notifyItemRangeInserted(0, amount)
     }
+
+    override fun setToolBarText(text: String) {
+        binding.toolbarText.text = text
+    }
 }

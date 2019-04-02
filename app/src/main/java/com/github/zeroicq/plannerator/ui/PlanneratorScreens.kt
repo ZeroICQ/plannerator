@@ -1,6 +1,7 @@
 package com.github.zeroicq.plannerator.ui
 
 import android.support.v4.app.Fragment
+import com.github.zeroicq.plannerator.ui.fragments.DayFragment
 import com.github.zeroicq.plannerator.ui.fragments.MonthFragment
 import com.github.zeroicq.plannerator.ui.fragments.WeekFragment
 import ru.terrakok.cicerone.Screen
@@ -12,4 +13,8 @@ class WeekScreen: SupportAppScreen() {
 
 class MonthScreen: SupportAppScreen() {
     override fun getFragment() = MonthFragment()
+}
+
+class DayScreen: SupportAppScreen() {
+    override fun getFragment() = DayFragment()
 }
