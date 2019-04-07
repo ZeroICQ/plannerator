@@ -26,8 +26,9 @@ class WeekTestRepository: WeekRepositoryInterface {
         val iterWeek = date.copyGregorian().apply {
             val currDayOfWeek = get(GregorianCalendar.DAY_OF_WEEK)
             // make monday first day of week again
-            if (currDayOfWeek == GregorianCalendar.SUNDAY)
-                add(GregorianCalendar.WEEK_OF_YEAR, -1)
+            //4todo: uncomment?
+//            if (currDayOfWeek == GregorianCalendar.SUNDAY)
+//                add(GregorianCalendar.WEEK_OF_YEAR, -1)
             set(GregorianCalendar.DAY_OF_WEEK, GregorianCalendar.MONDAY)
         }
 
