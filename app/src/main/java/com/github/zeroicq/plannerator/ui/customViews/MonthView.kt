@@ -1,20 +1,19 @@
 package com.github.zeroicq.plannerator.ui.customViews
 
 import android.content.Context
-import android.graphics.Color
 import android.icu.util.GregorianCalendar
 import android.support.v7.widget.AppCompatTextView
 import android.support.v7.widget.LinearLayoutCompat
 import android.util.Log
 import android.view.Gravity
-import android.view.View
+import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.LinearLayout
 import com.github.zeroicq.plannerator.PlanneratorApplication
 import com.github.zeroicq.plannerator.R
 import com.github.zeroicq.plannerator.mvp.models.DayModel
 import com.github.zeroicq.plannerator.mvp.models.MonthModel
-import com.github.zeroicq.plannerator.mvp.presenters.MonthPresenter
+import com.github.zeroicq.plannerator.util.isSameDay
 import com.github.zeroicq.plannerator.util.weekdayRes
 import java.util.*
 
@@ -59,7 +58,7 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
                 val constraintLayout = LinearLayout(ctxt)
 
                 val textView = AppCompatTextView(context)
-                val cell = Cell(textView)
+                val cell = Cell(constraintLayout, textView)
                 cells.add(cell)
 
                 val lp = GridLayout.LayoutParams(
@@ -96,21 +95,22 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
 
         var currIndex = 0
         for (i in prevMonth.days.lastIndex - daysFromPrevMonth..prevMonth.days.lastIndex) {
-            cells[currIndex++].setData(prevMonth.days[i], true)
+            cells[currIndex++].setData(prevMonth.days[i], true, context)
         }
 
         for (d in currMonth.days) {
-            cells[currIndex++].setData(d, false)
+            cells[currIndex++].setData(d, false, context)
         }
 
         // 42 for 7*6 elements in grid
         for ((i, j) in (currIndex until 42).withIndex()) {
-            cells[j].setData(nextMonth.days[i], true)
+            cells[j].setData(nextMonth.days[i], true, context)
         }
+
     }
 
-    class Cell(val textView: AppCompatTextView, var dayModel: DayModel? = null) {
-        fun setData(dayModel: DayModel, isGreyed: Boolean) {
+    class Cell(val layout: ViewGroup, val textView: AppCompatTextView, var dayModel: DayModel? = null) {
+        fun setData(dayModel: DayModel, isGreyed: Boolean, ctxt: Context) {
             this.dayModel = dayModel
             textView.text = dayModel.date.get(GregorianCalendar.DAY_OF_MONTH).toString()
 
@@ -118,6 +118,21 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
                 textView.alpha = .2f
             else
                 textView.alpha = 1.0f
+
+            // decorate not empty days
+            if (dayModel.events.size > 0)
+                layout.setBackgroundColor(ctxt.getColor(R.color.highlightDay))
+            else
+                layout.setBackgroundResource(0)
+
+            // decorate today
+            if ((GregorianCalendar.getInstance() as GregorianCalendar).isSameDay(dayModel.date))
+                textView.background = ctxt.getDrawable(R.drawable.circle)
+            else
+                textView.setBackgroundResource(0)
+
+
+
         }
     }
 }

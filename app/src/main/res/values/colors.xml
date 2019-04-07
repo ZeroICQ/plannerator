@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#A53B1C</color>
     <color name="colorAccent">#D81B60</color>
     <color name="lightGrey">#DDDDDD</color>
+
+    <color name="highlightDay">#FFC97F</color>
 </resources>

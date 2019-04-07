@@ -14,7 +14,7 @@ import com.github.zeroicq.plannerator.mvp.views.CreateEventView
 
 open class CreateEventFragment: MvpAppCompatFragment(), CreateEventView {
     private lateinit var binding: FragmentCreateEventBinding
-    //
+
     @InjectPresenter
     lateinit var presenter: CreateEventPresenter
 
