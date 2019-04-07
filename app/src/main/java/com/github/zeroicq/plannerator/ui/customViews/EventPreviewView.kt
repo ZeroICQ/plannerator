@@ -24,7 +24,7 @@ class EventPreviewView(ctxt: Context, event: EventModel) : CardView(ctxt) {
         setBackgroundColor(Color.GREEN)
 
         val textView = AppCompatTextView(ctxt)
-        textView.text = event.message
+        textView.text = event.title
         addView(textView)
     }
 
