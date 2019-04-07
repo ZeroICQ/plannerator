@@ -55,7 +55,7 @@ class WeekPresenter: MvpPresenter<WeekView>() {
 
     fun onMonthPosChange(pos: Int) {
         Log.d(PlanneratorApplication.appName, "week snap pos changed to $pos")
-        curWeekPos = pos+1
+        curWeekPos = pos
         viewState.setToolBarText(getMonthWithYearString(app.applicationContext, loadedWeeks[curWeekPos].date))
         if (LOAD_WEEKS - 1 - curWeekPos == LOAD_THRESHOLD ) {
             for (i in 1..LOAD_AMOUNT) {

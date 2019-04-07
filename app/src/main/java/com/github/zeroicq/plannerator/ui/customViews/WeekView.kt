@@ -78,7 +78,7 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
 
                 if (col == 1) {
                     hourCellLayout.gravity = Gravity.END or Gravity.BOTTOM
-                    hourCellLayout.setPadding(0, 0, 5, 0)
+//                    hourCellLayout.setPadding(0, 0, 5, 0)
                     val hourTitleTextView = AppCompatTextView(ctxt).apply {
                         width = 150
                         if (row != 24)
@@ -88,21 +88,17 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
                     hourCellLayout.addView(hourTitleTextView)
                 }
                 else {
-//                    val lp = GridLayout.LayoutParams(
-//                        GridLayout.spec(GridLayout.UNDEFINED, 1.0f),
-//                        GridLayout.spec(GridLayout.UNDEFINED, 1.0f))
 
-                    val lp = GridLayout.LayoutParams(
-                        GridLayout.spec(row-1, GridLayout.FILL, 1.0f),
-                        GridLayout.spec(col-1, GridLayout.FILL, 1.0f))
-                    lp.width = 0
-//                    lp.height = 0
-                    hourCellLayout.layoutParams = lp
                     hourCellLayout.gravity = Gravity.CENTER_HORIZONTAL and Gravity.TOP
 
                     val cell = HourCell(hourCellLayout)
                     dayCells[col-2].add(cell)
                 }
+                val lp = GridLayout.LayoutParams(
+                    GridLayout.spec(row-1, GridLayout.FILL, 1.0f),
+                    GridLayout.spec(col-1, GridLayout.FILL, 1.0f))
+                lp.width = 0
+                hourCellLayout.layoutParams = lp
 //                val textView = AppCompatTextView(context)
 //                textView.text = "tst"
 ////                cells.add(HourCell(textView))
@@ -121,22 +117,27 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
         val dayOfWeekTextView = AppCompatTextView(context)
 
 
-//        dayOfWeekLayout.setBackgroundResource(R.drawable.day_cell_border)
+//        dayOfWeekLayout.setBackgroundResource(R.drawable.border_test)
 
         dayOfWeekLayout.addView(dayOfWeekTextView)
+        dayOfWeekTextView.gravity = Gravity.CENTER_HORIZONTAL
+
         if (month == null)
             dayOfWeekTextView.width = 150
         else {
             val lp = GridLayout.LayoutParams(
-                GridLayout.spec(GridLayout.UNDEFINED, 0.1f),
-                GridLayout.spec(GridLayout.UNDEFINED, 1.0f)).apply {
-                setGravity(Gravity.CENTER or Gravity.BOTTOM)
+                GridLayout.spec(0, GridLayout.FILL, 0.1f),
+                GridLayout.spec(month-1, GridLayout.FILL, 1.0f)).apply {
+                this.setGravity(Gravity.CENTER_HORIZONTAL or Gravity.BOTTOM)
             }
-            dayOfWeekLayout.layoutParams = lp
+
             dayOfWeekLayout.orientation = LinearLayout.VERTICAL
+            dayOfWeekLayout.layoutParams = lp
 
             dayOfWeekTextView.setText( if (month != GregorianCalendar.SATURDAY+1) weekdayRes(month) else weekdayRes(GregorianCalendar.SUNDAY))
             val numberOfDayTextView = AppCompatTextView(context)
+            numberOfDayTextView.gravity = Gravity.CENTER_HORIZONTAL
+
             dayOfWeekLayout.addView(numberOfDayTextView)
 
             dayTitleCells.add(TitleCell(numberOfDayTextView))
@@ -158,8 +159,10 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
                                                                {it.date.get(GregorianCalendar.MINUTE)},
                                                                {it.date.get(GregorianCalendar.SECOND)}))
 
-            for (cell in dayCells[i])
+            for (cell in dayCells[i]) {
                 cell.layout.removeAllViewsInLayout()
+                cell.layout.requestLayout()
+            }
 
             for (e in sortedEvents) {
                 dayCells[i][e.date.get(GregorianCalendar.HOUR)].layout.addView(EventPreviewView(context, e))
@@ -179,5 +182,3 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
         }
     }
 }
-
-

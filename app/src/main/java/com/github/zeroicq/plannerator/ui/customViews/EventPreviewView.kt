@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.support.v7.widget.AppCompatTextView
 import android.support.v7.widget.CardView
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import com.github.zeroicq.plannerator.mvp.models.EventModel
 
 class EventPreviewView(ctxt: Context, event: EventModel) : CardView(ctxt) {
@@ -12,18 +13,13 @@ class EventPreviewView(ctxt: Context, event: EventModel) : CardView(ctxt) {
 //    private val cells = ArrayList<Cell>()
 
     init {
-//        layoutParams = ViewGroup.LayoutParams(
-//            ViewGroup.LayoutParams.WRAP_CONTENT,
-//            ViewGroup.LayoutParams.WRAP_CONTENT
-//        )
-
-        layoutParams = ViewGroup.LayoutParams(
+        val lp = FrameLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
+        lp.setMargins(5, 0, 5, 10)
 
-
-        setContentPadding(2,2,2,2)
+        layoutParams = lp
 
         setBackgroundColor(Color.GREEN)
 

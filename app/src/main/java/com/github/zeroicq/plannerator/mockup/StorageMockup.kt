@@ -15,9 +15,7 @@ class StorageMockup {
                 set(GregorianCalendar.HOUR, i)
             }
 
-            events.add(EventModel(d, "$i eventzzzz"))
-            events.add(EventModel(d, "$i evb"))
-            events.add(EventModel(d, "$i evc"))
+            events.add(EventModel(d, "today at $i"))
         }
 
         today.add(GregorianCalendar.DAY_OF_MONTH, -1)
@@ -27,9 +25,9 @@ class StorageMockup {
                 set(GregorianCalendar.HOUR, i+10)
             }
 
-            events.add(EventModel(d, "$i eva"))
-            events.add(EventModel(d, "$i evb"))
-            events.add(EventModel(d, "$i evcdadsadssa"))
+            events.add(EventModel(d, "$i first short"))
+            events.add(EventModel(d, "$i second meeeeeeeedium"))
+            events.add(EventModel(d, "$i third longlonglonglonglonglonglonglonglonglonglonglonglong"))
         }
 
     }
