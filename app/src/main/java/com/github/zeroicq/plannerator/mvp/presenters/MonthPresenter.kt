@@ -10,6 +10,7 @@ import com.github.zeroicq.plannerator.mvp.models.DayModel
 import com.github.zeroicq.plannerator.mvp.models.MonthModel
 import com.github.zeroicq.plannerator.mvp.views.MonthView
 import com.github.zeroicq.plannerator.repository.MonthTestRepository
+import com.github.zeroicq.plannerator.ui.CreateEventScreen
 import com.github.zeroicq.plannerator.ui.DayScreen
 import com.github.zeroicq.plannerator.util.copyGregorian
 import com.github.zeroicq.plannerator.util.getMonthWithYearString
@@ -21,6 +22,7 @@ class MonthPresenter: MvpPresenter<MonthView>() {
     @Inject
     lateinit var app: PlanneratorApplication
 
+    // todo: replace test witch actual
     @Inject
     lateinit var monthRepository : MonthTestRepository
 
@@ -53,8 +55,8 @@ class MonthPresenter: MvpPresenter<MonthView>() {
         viewState.setToolBarText(getMonthWithYearString(app.applicationContext, loadedMonths[curMonthPos].date))
     }
 
-    fun onClick() {
-//        viewState.test()
+    fun onCreateEvent() {
+        app.router.navigateTo(CreateEventScreen())
     }
 
     fun onMonthPosChange(pos: Int) {

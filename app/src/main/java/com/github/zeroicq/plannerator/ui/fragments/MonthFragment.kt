@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.github.zeroicq.plannerator.PlanneratorApplication
 import com.github.zeroicq.plannerator.R
@@ -29,12 +28,8 @@ class MonthFragment : BaseFragment(), MonthView {
         //recycler
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(binding.monthRecycler)
-//
-        binding.fab.setOnClickListener { view ->
-            //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-            presenter.onClick()
-        }
+        // todo: pass current date
+        binding.fab.setOnClickListener { view -> presenter.onCreateEvent() }
 //
         binding.monthRecycler.apply {
             adapter = MonthsAdapter(presenter)
