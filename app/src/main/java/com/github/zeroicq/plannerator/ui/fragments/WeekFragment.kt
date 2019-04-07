@@ -19,7 +19,7 @@ import com.github.zeroicq.plannerator.ui.layoutManagers.MonthByDayLayoutManager
 import com.github.zeroicq.plannerator.ui.layoutManagers.WeekByDayLayoutManager
 import com.github.zeroicq.plannerator.ui.listeners.SnapChangeListener
 
-class WeekFragment : MvpAppCompatFragment(), WeekView {
+class WeekFragment : BaseFragment(), WeekView {
 
     private lateinit var binding: FragmentWeekBinding
     //
@@ -28,6 +28,7 @@ class WeekFragment : MvpAppCompatFragment(), WeekView {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_week, container, false)
+
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(binding.weekRecycler)
         // recycler
@@ -53,9 +54,5 @@ class WeekFragment : MvpAppCompatFragment(), WeekView {
     override fun onRecyclerPrev(amount: Int) {
         binding.weekRecycler.adapter?.notifyItemRangeRemoved(presenter.loadedWeeks.size - amount, amount)
         binding.weekRecycler.adapter?.notifyItemRangeInserted(0, amount)
-    }
-
-    override fun setToolBarText(text: String) {
-        binding.toolbarText.text = text
     }
 }

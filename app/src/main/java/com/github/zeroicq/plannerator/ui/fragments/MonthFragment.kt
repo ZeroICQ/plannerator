@@ -18,7 +18,7 @@ import com.github.zeroicq.plannerator.ui.adapters.MonthsAdapter
 import com.github.zeroicq.plannerator.ui.layoutManagers.MonthByDayLayoutManager
 import com.github.zeroicq.plannerator.ui.listeners.SnapChangeListener
 
-class MonthFragment : MvpAppCompatFragment(), MonthView {
+class MonthFragment : BaseFragment(), MonthView {
     private lateinit var binding: FragmentMonthBinding
 //
     @InjectPresenter
@@ -58,9 +58,5 @@ class MonthFragment : MvpAppCompatFragment(), MonthView {
     override fun onRecyclerPrev(amount: Int) {
         binding.monthRecycler.adapter?.notifyItemRangeRemoved(presenter.loadedMonths.size-amount, amount)
         binding.monthRecycler.adapter?.notifyItemRangeInserted(0, amount)
-    }
-
-    override fun setToolBarText(text: String) {
-        binding.toolbarText.text = text
     }
 }

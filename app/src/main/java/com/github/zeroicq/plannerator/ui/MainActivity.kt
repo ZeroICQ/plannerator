@@ -118,4 +118,8 @@ class MainActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSele
         super.onPause()
         presenter.app.navigatorHolder.removeNavigator()
     }
+
+    override fun setToolBarText(text: String) {
+        binding.toolbarText.text = text
+    }
 }

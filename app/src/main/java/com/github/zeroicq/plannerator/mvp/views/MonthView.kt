@@ -5,9 +5,7 @@ import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(value = AddToEndSingleStrategy::class)
-interface MonthView : MvpView {
+interface MonthView : MvpView, ToolbarView {
     fun onRecyclerAdvance(amount: Int)
     fun onRecyclerPrev(amount: Int)
-
-    fun setToolBarText(text: String)
 }
