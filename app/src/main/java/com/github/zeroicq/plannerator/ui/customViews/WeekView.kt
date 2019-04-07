@@ -152,7 +152,7 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
 
     class TitleCell(val dayNumberText : AppCompatTextView) {
         fun setData(dayModel: DayModel) {
-            dayNumberText.text =  dayModel.date.get(GregorianCalendar.DAY_OF_MONTH).toString()
+            dayNumberText.text = dayModel.date.get(GregorianCalendar.DAY_OF_MONTH).toString()
         }
     }
 }

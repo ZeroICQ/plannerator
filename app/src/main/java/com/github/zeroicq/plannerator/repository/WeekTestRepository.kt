@@ -33,7 +33,7 @@ class WeekTestRepository: WeekRepositoryInterface {
 
         val days = ArrayList<DayModel>()
         for (i in 1..7) {
-            val dayDate = GregorianCalendar(iterWeek.get(Calendar.YEAR), iterWeek.get(Calendar.MONTH), iterWeek.get(Calendar.DATE))
+            val dayDate = GregorianCalendar(iterWeek.get(Calendar.YEAR), iterWeek.get(Calendar.MONTH), iterWeek.get(Calendar.DAY_OF_MONTH))
             days.add(DayModel(dayDate, storage.getDayEvents(dayDate)))
             iterWeek.add(GregorianCalendar.DAY_OF_YEAR, 1)
         }

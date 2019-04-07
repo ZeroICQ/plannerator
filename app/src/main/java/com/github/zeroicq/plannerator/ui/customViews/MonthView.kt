@@ -131,8 +131,6 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
             else
                 textView.setBackgroundResource(0)
 
-
-
         }
     }
 }
