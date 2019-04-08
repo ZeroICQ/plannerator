@@ -9,6 +9,7 @@ import com.github.zeroicq.plannerator.ui.customViews.WeekView
 class WeeksAdapter(val weekPreseneter : WeekPresenter): RecyclerView.Adapter<WeeksAdapter.WeekHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, pos: Int): WeekHolder {
         val v = WeekView(parent.context)
+        v.eventClickListener = { it -> weekPreseneter.onEventClick(it) }
         return WeekHolder(v)
     }
 

@@ -4,17 +4,21 @@ import android.content.Context
 import android.icu.util.GregorianCalendar
 import android.support.v7.widget.AppCompatTextView
 import android.util.AttributeSet
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.LinearLayout
 import android.widget.ScrollView
+import com.github.zeroicq.plannerator.PlanneratorApplication
 import com.github.zeroicq.plannerator.R
 import com.github.zeroicq.plannerator.mvp.models.DayModel
+import com.github.zeroicq.plannerator.mvp.models.EventModel
 
 class DayView(ctxt : Context, attr: AttributeSet?) : ScrollView(ctxt, attr) {
     private val hourCells = ArrayList<HourCell>()
+    var eventClickListener: ((EventModel)->Unit)? = null
 
     init {
         // hour table
@@ -86,6 +90,11 @@ class DayView(ctxt : Context, attr: AttributeSet?) : ScrollView(ctxt, attr) {
         addView(gridLayout)
     }
 
+    private fun onEventClick(eventModel: EventModel) {
+        Log.d(PlanneratorApplication.appName, "clicked")
+        eventClickListener?.invoke(eventModel)
+    }
+
     fun updateData(currDay: DayModel) {
         val sortedEvents = currDay.events.sortedWith(compareBy({it.date.get(GregorianCalendar.HOUR)},
             {it.date.get(GregorianCalendar.MINUTE)},
@@ -93,7 +102,10 @@ class DayView(ctxt : Context, attr: AttributeSet?) : ScrollView(ctxt, attr) {
 
 
         for (e in sortedEvents) {
-            hourCells[e.date.get(GregorianCalendar.HOUR)].layout.addView(EventPreviewView(context, e))
+            val currCell = hourCells[e.date.get(GregorianCalendar.HOUR)]
+            val eventView = EventPreviewView(context, e)
+            eventView.setOnClickListener{ onEventClick((e)) }
+            currCell.layout.addView(eventView)
         }
 
     }

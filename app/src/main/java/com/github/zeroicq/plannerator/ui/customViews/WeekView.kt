@@ -15,6 +15,7 @@ import android.widget.ScrollView
 import com.github.zeroicq.plannerator.PlanneratorApplication
 import com.github.zeroicq.plannerator.R
 import com.github.zeroicq.plannerator.mvp.models.DayModel
+import com.github.zeroicq.plannerator.mvp.models.EventModel
 import com.github.zeroicq.plannerator.mvp.models.WeekModel
 import com.github.zeroicq.plannerator.util.weekdayRes
 
@@ -22,6 +23,8 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
     private val daysOfWeekTitles: GridLayout
     private val dayCells = Array<ArrayList<HourCell>>(7) { ArrayList() }
     private val dayTitleCells = ArrayList<TitleCell>()
+
+    var eventClickListener: ((EventModel)->Unit)? = null
 
     init {
         layoutParams = LinearLayoutCompat.LayoutParams(
@@ -116,7 +119,6 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
         val dayOfWeekLayout = LinearLayout(ctxt)
         val dayOfWeekTextView = AppCompatTextView(context)
 
-
 //        dayOfWeekLayout.setBackgroundResource(R.drawable.border_test)
 
         dayOfWeekLayout.addView(dayOfWeekTextView)
@@ -146,9 +148,9 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
         daysOfWeekTitles.addView(dayOfWeekLayout)
     }
 
-    private fun onCellClick(v: View) {
-//        v.setBackgroundColor(Color.CYAN)
+    private fun onEventClick(eventModel: EventModel) {
         Log.d(PlanneratorApplication.appName, "clicked")
+        eventClickListener?.invoke(eventModel)
     }
 
     fun updateData(currWeek: WeekModel) {
@@ -165,7 +167,10 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
             }
 
             for (e in sortedEvents) {
-                dayCells[i][e.date.get(GregorianCalendar.HOUR)].layout.addView(EventPreviewView(context, e))
+                val curCell = dayCells[i][e.date.get(GregorianCalendar.HOUR)]
+                val eventView = EventPreviewView(context, e)
+                eventView.setOnClickListener{ onEventClick(e) }
+                curCell.layout.addView(eventView)
             }
 
         }

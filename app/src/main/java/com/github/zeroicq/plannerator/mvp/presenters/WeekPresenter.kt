@@ -5,9 +5,11 @@ import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.github.zeroicq.plannerator.PlanneratorApplication
+import com.github.zeroicq.plannerator.mvp.models.EventModel
 import com.github.zeroicq.plannerator.mvp.models.WeekModel
 import com.github.zeroicq.plannerator.mvp.views.WeekView
 import com.github.zeroicq.plannerator.repository.WeekTestRepository
+import com.github.zeroicq.plannerator.ui.EventScreen
 import com.github.zeroicq.plannerator.util.copyGregorian
 import com.github.zeroicq.plannerator.util.getMonthWithYearString
 import javax.inject.Inject
@@ -77,6 +79,10 @@ class WeekPresenter: MvpPresenter<WeekView>() {
             viewState.onRecyclerPrev(LOAD_AMOUNT)
         }
 
+    }
+    // todo: pass event data
+    fun onEventClick(it: EventModel) {
+        app.router.navigateTo(EventScreen())
     }
 
 

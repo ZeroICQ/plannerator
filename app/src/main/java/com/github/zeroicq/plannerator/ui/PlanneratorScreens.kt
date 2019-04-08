@@ -5,10 +5,7 @@ import android.icu.util.GregorianCalendar
 import android.os.Bundle
 import android.support.v4.app.BundleCompat
 import android.support.v4.app.Fragment
-import com.github.zeroicq.plannerator.ui.fragments.CreateEventFragment
-import com.github.zeroicq.plannerator.ui.fragments.DayFragment
-import com.github.zeroicq.plannerator.ui.fragments.MonthFragment
-import com.github.zeroicq.plannerator.ui.fragments.WeekFragment
+import com.github.zeroicq.plannerator.ui.fragments.*
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 class WeekScreen: SupportAppScreen() {
@@ -33,4 +30,8 @@ class DayScreen(val date: GregorianCalendar): SupportAppScreen() {
 
 class CreateEventScreen: SupportAppScreen() {
     override fun getFragment() = CreateEventFragment()
+}
+
+class EventScreen: SupportAppScreen() {
+    override fun getFragment() = EventFragment()
 }

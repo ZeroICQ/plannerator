@@ -16,6 +16,7 @@ interface AppComponent {
     fun inject(weekPresenter: WeekPresenter)
     fun inject(dayPresenter: DayPresenter)
     fun inject(createEventPresenter: CreateEventPresenter)
+    fun inject(eventPresenter: EventPresenter)
 
     // test repos
     fun inject(weekTestRepository: WeekTestRepository)

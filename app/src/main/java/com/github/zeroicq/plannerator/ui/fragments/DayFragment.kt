@@ -36,7 +36,7 @@ class DayFragment: BaseFragment(), DayView {
             date.timeInMillis  = dateInMillis
         }
         setToolBarText(getDayWithMonthWithYeatString(context!!, date))
-
+        binding.dayView.eventClickListener = { it -> presenter.onEventClick(it)}
         binding.dayView.updateData(presenter.getDayModel(date))
         return  binding.root
     }
