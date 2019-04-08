@@ -5,6 +5,7 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.github.zeroicq.plannerator.PlanneratorApplication
 import com.github.zeroicq.plannerator.mvp.views.MainView
+import com.github.zeroicq.plannerator.ui.DayScreen
 import com.github.zeroicq.plannerator.ui.MonthScreen
 import com.github.zeroicq.plannerator.ui.WeekScreen
 import ru.terrakok.cicerone.Router
@@ -21,5 +22,6 @@ class MainPresenter: MvpPresenter<MainView>() {
 
     fun onWeekCommandClick() = app.router.replaceScreen(WeekScreen())
     fun onMonthCommandClick() = app.router.replaceScreen(MonthScreen())
+    fun onDayCommandClick() = app.router.replaceScreen(DayScreen())
 
 }

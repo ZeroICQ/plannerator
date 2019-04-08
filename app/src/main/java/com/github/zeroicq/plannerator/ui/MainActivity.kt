@@ -76,6 +76,7 @@ class MainActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSele
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
+            R.id.navDay -> presenter.onDayCommandClick()
             R.id.navWeek -> presenter.onWeekCommandClick()
             R.id.navMonth -> presenter.onMonthCommandClick()
         }

@@ -16,13 +16,15 @@ class MonthScreen: SupportAppScreen() {
     override fun getFragment() = MonthFragment()
 }
 
-class DayScreen(val date: GregorianCalendar): SupportAppScreen() {
+class DayScreen(val date: GregorianCalendar? = null): SupportAppScreen() {
     override fun getFragment(): Fragment {
         val f = DayFragment()
 
-        val bundle = Bundle()
-        bundle.putLong(DayFragment.BUNDLE_KEYS.DATE.toString(), date.timeInMillis)
-        f.arguments = bundle
+        if (date != null) {
+            val bundle = Bundle()
+            bundle.putLong(DayFragment.BUNDLE_KEYS.DATE.toString(), date.timeInMillis)
+            f.arguments = bundle
+        }
 
         return f
     }

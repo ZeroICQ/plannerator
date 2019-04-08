@@ -5,6 +5,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/navDay"
+            android:title="@string/day"/>
+
+        <item
             android:id="@+id/navWeek"
             android:title="@string/week"/>
         <item
