@@ -82,7 +82,7 @@ class WeekPresenter: MvpPresenter<WeekView>() {
     }
     // todo: pass event data
     fun onEventClick(it: EventModel) {
-        app.router.navigateTo(EventScreen())
+        app.router.navigateTo(EventScreen(it))
     }
 
 

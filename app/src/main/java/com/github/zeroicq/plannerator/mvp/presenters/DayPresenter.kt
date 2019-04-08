@@ -28,6 +28,6 @@ class DayPresenter: MvpPresenter<DayView>() {
 
     //todo: pass event data
     fun onEventClick(it: EventModel) {
-        app.router.navigateTo(EventScreen())
+        app.router.navigateTo(EventScreen(it))
     }
 }

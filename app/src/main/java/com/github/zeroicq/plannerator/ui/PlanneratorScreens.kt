@@ -5,6 +5,7 @@ import android.icu.util.GregorianCalendar
 import android.os.Bundle
 import android.support.v4.app.BundleCompat
 import android.support.v4.app.Fragment
+import com.github.zeroicq.plannerator.mvp.models.EventModel
 import com.github.zeroicq.plannerator.ui.fragments.*
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
@@ -34,6 +35,13 @@ class CreateEventScreen: SupportAppScreen() {
     override fun getFragment() = CreateEventFragment()
 }
 
-class EventScreen: SupportAppScreen() {
-    override fun getFragment() = EventFragment()
+class EventScreen(val event: EventModel): SupportAppScreen() {
+    override fun getFragment(): Fragment {
+        val f = EventFragment()
+
+        val bundle = Bundle()
+        bundle.putParcelable(EventFragment.BUNDLE_KEYS.EVENT.toString(), event)
+        f.arguments = bundle
+        return f
+    }
 }
