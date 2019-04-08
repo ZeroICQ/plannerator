@@ -12,7 +12,7 @@ import kotlin.collections.ArrayList
 /**
  * @param date used for retrieving month
  */
-class MonthTestRepository(): MonthRepositoryInterface {
+class MonthTestRepository: MonthRepositoryInterface {
     @Inject
     lateinit var storage : StorageMockup
 

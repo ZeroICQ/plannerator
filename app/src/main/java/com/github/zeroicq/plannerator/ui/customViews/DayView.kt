@@ -1,0 +1,105 @@
+package com.github.zeroicq.plannerator.ui.customViews
+
+import android.content.Context
+import android.icu.util.GregorianCalendar
+import android.support.v7.widget.AppCompatTextView
+import android.util.AttributeSet
+import android.view.Gravity
+import android.view.View
+import android.view.ViewGroup
+import android.widget.GridLayout
+import android.widget.LinearLayout
+import android.widget.ScrollView
+import com.github.zeroicq.plannerator.R
+import com.github.zeroicq.plannerator.mvp.models.DayModel
+
+class DayView(ctxt : Context, attr: AttributeSet?) : ScrollView(ctxt, attr) {
+    private val hourCells = ArrayList<HourCell>()
+
+    init {
+        // hour table
+        overScrollMode = View.OVER_SCROLL_NEVER
+        isVerticalScrollBarEnabled = false
+
+        layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+
+//        scrollView.setBackgroundColor(Color.GRAY)
+        isFillViewport = true
+
+
+        val gridLayout = GridLayout(ctxt)
+        gridLayout.layoutParams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT)
+
+        gridLayout.columnCount = 2
+        gridLayout.rowCount = 24
+//        gridView.setBackgroundColor(Color.RED)
+
+        for (row in 1..24) {
+            for (col in 1..2) {
+                val hourCellLayout = LinearLayout(ctxt)
+//                constraintLayout.setOnClickListener{onCellClick(it)}
+                hourCellLayout.setBackgroundResource(R.drawable.day_cell_border)
+                hourCellLayout.minimumHeight = 200
+                hourCellLayout.orientation = LinearLayout.VERTICAL
+
+                if (col == 1) {
+                    hourCellLayout.gravity = Gravity.END or Gravity.BOTTOM
+//                    hourCellLayout.setPadding(0, 0, 5, 0)
+                    val hourTitleTextView = AppCompatTextView(ctxt).apply {
+                        width = 150
+                        if (row != 24)
+                            text = "${row}:00"
+                    }
+                    hourTitleTextView.gravity = Gravity.END
+                    hourCellLayout.addView(hourTitleTextView)
+
+                    val lp = GridLayout.LayoutParams(
+                        GridLayout.spec(row-1, GridLayout.FILL, 1.0f),
+                        GridLayout.spec(col-1, GridLayout.FILL, 0f))
+
+                    hourCellLayout.layoutParams = lp
+
+                }
+                else {
+                    hourCellLayout.gravity = Gravity.CENTER_HORIZONTAL and Gravity.TOP
+                    val cell = HourCell(hourCellLayout)
+                    hourCells.add(cell)
+
+                    val lp = GridLayout.LayoutParams(
+                        GridLayout.spec(row-1, GridLayout.FILL, 1.0f),
+                        GridLayout.spec(col-1, GridLayout.FILL, 1.0f))
+                    lp.width = 0
+                    hourCellLayout.layoutParams = lp
+                }
+
+//                val textView = AppCompatTextView(context)
+//                textView.text = "tst"
+////                cells.add(HourCell(textView))
+//
+//                hourCellLayout.addView(textView)
+
+                gridLayout.addView(hourCellLayout)
+            }
+        }
+        addView(gridLayout)
+    }
+
+    fun updateData(currDay: DayModel) {
+        val sortedEvents = currDay.events.sortedWith(compareBy({it.date.get(GregorianCalendar.HOUR)},
+            {it.date.get(GregorianCalendar.MINUTE)},
+            {it.date.get(GregorianCalendar.SECOND)}))
+
+
+        for (e in sortedEvents) {
+            hourCells[e.date.get(GregorianCalendar.HOUR)].layout.addView(EventPreviewView(context, e))
+        }
+
+    }
+
+    class HourCell(val layout: ViewGroup) {
+//        fun setData(dayModel: DayModel) {
+//        }
+    }
+}

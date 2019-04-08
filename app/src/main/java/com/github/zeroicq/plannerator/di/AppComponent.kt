@@ -1,6 +1,7 @@
 package com.github.zeroicq.plannerator.di
 
 import com.github.zeroicq.plannerator.mvp.presenters.*
+import com.github.zeroicq.plannerator.repository.DayTestRepository
 import com.github.zeroicq.plannerator.repository.MonthTestRepository
 import com.github.zeroicq.plannerator.repository.WeekTestRepository
 import dagger.Component
@@ -19,5 +20,6 @@ interface AppComponent {
     // test repos
     fun inject(weekTestRepository: WeekTestRepository)
     fun inject(monthTestRepository: MonthTestRepository)
+    fun inject(dayTestRepository: DayTestRepository)
 
 }

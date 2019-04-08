@@ -6,6 +6,7 @@ import android.support.v7.widget.AppCompatTextView
 import android.support.v7.widget.CardView
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import com.github.zeroicq.plannerator.R
 import com.github.zeroicq.plannerator.mvp.models.EventModel
 
 class EventPreviewView(ctxt: Context, event: EventModel) : CardView(ctxt) {
@@ -17,11 +18,11 @@ class EventPreviewView(ctxt: Context, event: EventModel) : CardView(ctxt) {
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        lp.setMargins(5, 0, 5, 10)
+        lp.setMargins(10, 5, 10, 20)
 
         layoutParams = lp
 
-        setBackgroundColor(Color.GREEN)
+        setBackgroundColor(ctxt.getColor(R.color.highlightDay))
 
         val textView = AppCompatTextView(ctxt)
         textView.text = event.title

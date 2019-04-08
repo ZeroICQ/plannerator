@@ -87,7 +87,7 @@ class MonthPresenter: MvpPresenter<MonthView>() {
 
     fun onDayClick(dayModel: DayModel) {
         Log.d(PlanneratorApplication.appName, "day was clicked in month view")
-        app.router.navigateTo(DayScreen())
+        app.router.navigateTo(DayScreen(dayModel.date))
     }
 
 }

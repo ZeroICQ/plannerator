@@ -1,5 +1,9 @@
 package com.github.zeroicq.plannerator.ui
 
+import android.icu.util.Calendar
+import android.icu.util.GregorianCalendar
+import android.os.Bundle
+import android.support.v4.app.BundleCompat
 import android.support.v4.app.Fragment
 import com.github.zeroicq.plannerator.ui.fragments.CreateEventFragment
 import com.github.zeroicq.plannerator.ui.fragments.DayFragment
@@ -15,8 +19,16 @@ class MonthScreen: SupportAppScreen() {
     override fun getFragment() = MonthFragment()
 }
 
-class DayScreen: SupportAppScreen() {
-    override fun getFragment() = DayFragment()
+class DayScreen(val date: GregorianCalendar): SupportAppScreen() {
+    override fun getFragment(): Fragment {
+        val f = DayFragment()
+
+        val bundle = Bundle()
+        bundle.putLong(DayFragment.BUNDLE_KEYS.DATE.toString(), date.timeInMillis)
+        f.arguments = bundle
+
+        return f
+    }
 }
 
 class CreateEventScreen: SupportAppScreen() {
