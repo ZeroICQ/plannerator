@@ -42,4 +42,7 @@
     <string name="week">Week</string>
     <string name="day">Day</string>
 
+    <string name="event_title_label">Title</string>
+    <string name="event_message_label">Message</string>
+
 </resources>

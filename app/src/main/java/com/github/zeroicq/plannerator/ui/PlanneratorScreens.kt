@@ -7,6 +7,7 @@ import android.support.v4.app.BundleCompat
 import android.support.v4.app.Fragment
 import com.github.zeroicq.plannerator.mvp.models.EventModel
 import com.github.zeroicq.plannerator.ui.fragments.*
+import com.github.zeroicq.plannerator.util.putGregorianCalendar
 import ru.terrakok.cicerone.android.support.SupportAppScreen
 
 class WeekScreen: SupportAppScreen() {
@@ -23,7 +24,7 @@ class DayScreen(val date: GregorianCalendar? = null): SupportAppScreen() {
 
         if (date != null) {
             val bundle = Bundle()
-            bundle.putLong(DayFragment.BUNDLE_KEYS.DATE.toString(), date.timeInMillis)
+            bundle.putGregorianCalendar(DayFragment.BUNDLE_KEYS.DATE.toString(), date)
             f.arguments = bundle
         }
 
@@ -31,8 +32,16 @@ class DayScreen(val date: GregorianCalendar? = null): SupportAppScreen() {
     }
 }
 
-class CreateEventScreen: SupportAppScreen() {
-    override fun getFragment() = CreateEventFragment()
+class CreateEventScreen(val date: GregorianCalendar): SupportAppScreen() {
+    override fun getFragment(): Fragment {
+        val f = CreateEventFragment()
+        val bundle = Bundle()
+        bundle.putGregorianCalendar(CreateEventFragment.BUNDLE_KEYS.DATE.toString(), date)
+        f.arguments = bundle
+
+        return f
+    }
+
 }
 
 class EventScreen(val event: EventModel): SupportAppScreen() {

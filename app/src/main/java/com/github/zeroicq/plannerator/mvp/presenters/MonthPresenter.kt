@@ -56,7 +56,7 @@ class MonthPresenter: MvpPresenter<MonthView>() {
     }
 
     fun onCreateEvent() {
-        app.router.navigateTo(CreateEventScreen())
+        app.router.navigateTo(CreateEventScreen(loadedMonths[curMonthPos].date))
     }
 
     fun onMonthPosChange(pos: Int) {
