@@ -5,9 +5,7 @@ import android.icu.util.GregorianCalendar
 import com.github.zeroicq.plannerator.mvp.models.EventModel
 import com.github.zeroicq.plannerator.util.copyGregorian
 import com.mooveit.library.Fakeit
-import com.thedeanda.lorem.Lorem
 import com.thedeanda.lorem.LoremIpsum
-import java.util.*
 import kotlin.collections.ArrayList
 
 class StorageMockup {
@@ -19,22 +17,26 @@ class StorageMockup {
         val today = GregorianCalendar.getInstance()
 
         for (i in 1..5) {
-            val d = (today as GregorianCalendar).copyGregorian().apply {
+            val start = (today as GregorianCalendar).copyGregorian().apply {
                 set(GregorianCalendar.HOUR, i)
             }
 
-            events.add(EventModel(d, lorem.getTitle(1, 4), Fakeit.rickAndMorty().quote()))
+            val end = start.copyGregorian().apply { add(GregorianCalendar.HOUR_OF_DAY, 1) }
+
+            events.add(EventModel(start, end, lorem.getTitle(1, 4), Fakeit.rickAndMorty().quote()))
         }
 
         today.add(GregorianCalendar.DAY_OF_MONTH, -1)
 
         for (i in 1..3) {
-            val d = (today as GregorianCalendar).copyGregorian().apply {
+            val start = (today as GregorianCalendar).copyGregorian().apply {
                 set(GregorianCalendar.HOUR, i+10)
             }
 
+            val end = start.copyGregorian().apply { add(GregorianCalendar.HOUR_OF_DAY, 1) }
+
             for (j in 1..3) {
-                events.add(EventModel(d, lorem.getTitle(1, 4), Fakeit.rickAndMorty().quote()))
+                events.add(EventModel(start, end, lorem.getTitle(1, 4), Fakeit.rickAndMorty().quote()))
             }
 
         }
@@ -49,9 +51,9 @@ class StorageMockup {
         val result = ArrayList<EventModel>()
 
         for (e in events) {
-            if (e.date.get(GregorianCalendar.YEAR) == date.get(GregorianCalendar.YEAR) &&
-                e.date.get(GregorianCalendar.MONTH) == date.get(GregorianCalendar.MONTH) &&
-                e.date.get(GregorianCalendar.DAY_OF_MONTH) == date.get(GregorianCalendar.DAY_OF_MONTH))
+            if (e.startDate.get(GregorianCalendar.YEAR) == date.get(GregorianCalendar.YEAR) &&
+                e.startDate.get(GregorianCalendar.MONTH) == date.get(GregorianCalendar.MONTH) &&
+                e.startDate.get(GregorianCalendar.DAY_OF_MONTH) == date.get(GregorianCalendar.DAY_OF_MONTH))
             {
                 result.add(e)
             }

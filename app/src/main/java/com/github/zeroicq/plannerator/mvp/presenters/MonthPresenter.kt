@@ -36,7 +36,6 @@ class MonthPresenter: MvpPresenter<MonthView>() {
 
     var curMonthPos = LOAD_MONTHS / 2
 
-
     init {
         PlanneratorApplication.graph.inject(this)
         loadMonths()
@@ -56,6 +55,8 @@ class MonthPresenter: MvpPresenter<MonthView>() {
     }
 
     fun onCreateEvent() {
+        //todo: experiments
+//        viewState.navigateTo(CreateEventScreen(loadedMonths[curMonthPos].date))
         app.router.navigateTo(CreateEventScreen(loadedMonths[curMonthPos].date))
     }
 

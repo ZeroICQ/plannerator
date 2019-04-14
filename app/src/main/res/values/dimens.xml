@@ -7,4 +7,6 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="event_title_text_size">20sp</dimen>
+
+    <dimen name="event_dates_text_size">18sp</dimen>
 </resources>

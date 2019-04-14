@@ -4,6 +4,7 @@ import com.github.zeroicq.plannerator.mvp.presenters.*
 import com.github.zeroicq.plannerator.repository.DayTestRepository
 import com.github.zeroicq.plannerator.repository.MonthTestRepository
 import com.github.zeroicq.plannerator.repository.WeekTestRepository
+import com.github.zeroicq.plannerator.ui.fragments.BaseFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -22,5 +23,6 @@ interface AppComponent {
     fun inject(weekTestRepository: WeekTestRepository)
     fun inject(monthTestRepository: MonthTestRepository)
     fun inject(dayTestRepository: DayTestRepository)
+    fun inject(baseFragment: BaseFragment)
 
 }

@@ -15,6 +15,7 @@ import com.github.zeroicq.plannerator.databinding.ActivityMainBinding
 import com.github.zeroicq.plannerator.mvp.presenters.MainPresenter
 import com.github.zeroicq.plannerator.mvp.views.MainView
 import kotlinx.android.synthetic.main.app_bar_main.*
+import ru.terrakok.cicerone.Screen
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
 
@@ -110,10 +111,19 @@ class MainActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSele
             .setAction("Action", null).show()
     }
 
-    override fun onResume() {
-        super.onResume()
+
+
+    override fun onResumeFragments() {
+        super.onResumeFragments()
         presenter.app.navigatorHolder.setNavigator(navigator)
     }
+
+//    override fun onResume() {
+//        super.onResume()
+//        presenter.app.navigatorHolder.setNavigator(navigator)
+//    }
+
+
 
     override fun onPause() {
         super.onPause()
@@ -123,4 +133,13 @@ class MainActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSele
     override fun setToolBarText(text: String) {
         binding.toolbarText.text = text
     }
+
+    override fun navigateTo(screen: Screen) {
+        presenter.app.router.navigateTo(screen)
+    }
+
+    override fun newRootScreen(screen: Screen) {
+        presenter.app.router.newRootScreen(screen)
+    }
+
 }

@@ -25,8 +25,8 @@ class EventFragment : BaseFragment(), EventView {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event, container, false)
 
         val event = arguments!!.getParcelable<EventModel>(BUNDLE_KEYS.EVENT.toString())
-
-        binding.dateText.text = getDayWithMonthWithYearString(context!!, event.date)
+        //todo: add start/end date
+        binding.dateText.text = getDayWithMonthWithYearString(context!!, event.startDate)
         binding.eventTitle.text = event.title
         binding.eventMessage.text = event.message
         return  binding.root

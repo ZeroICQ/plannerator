@@ -45,9 +45,12 @@
 
 
         <android.support.v7.widget.LinearLayoutCompat
+            android:id="@+id/eventStartLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+
+            android:theme="@style/EventCreateDateText"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,18 +62,51 @@
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginTop="8dp"
 
-                tools:text="Вс, 14 апр. 2019 г."
-                android:text="Вс, 14 апр. 2019 г."/>
+                android:layout_weight="1"
+                tools:text="Вс, 14 апр. 2019 г." />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/startTimeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                tools:text="10:20"
-                android:text="10:20"/>
+                tools:text="10:20"/>
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:id="@+id/eventEndLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:theme="@style/EventCreateDateText"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/eventStartLayout"
+            android:gravity="fill_horizontal"
+            >
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/endDateTextView"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/nav_header_vertical_spacing"
+
+                android:layout_weight="1"
+                tools:text="Вс, 14 апр. 2019 г." />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/endTimeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                tools:text="11:20"/>
 
         </android.support.v7.widget.LinearLayoutCompat>
 

@@ -4,10 +4,19 @@ import android.icu.util.GregorianCalendar
 import android.os.Parcel
 import android.os.Parcelable
 
-class EventModel (val date: GregorianCalendar, val title: String, val message: String = ""): Parcelable {
+class EventModel(
+    val startDate: GregorianCalendar,
+    val endDate: GregorianCalendar,
+    val title: String = "",
+    val message: String = ""
+
+    ): Parcelable {
 
     // Parcelabel
     constructor(parcel: Parcel) : this(
+        (GregorianCalendar.getInstance().apply {
+            timeInMillis = parcel.readLong()
+        } as GregorianCalendar),
         (GregorianCalendar.getInstance().apply {
             timeInMillis = parcel.readLong()
         } as GregorianCalendar),
@@ -16,7 +25,8 @@ class EventModel (val date: GregorianCalendar, val title: String, val message: S
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeLong(date.timeInMillis)
+        parcel.writeLong(startDate.timeInMillis)
+        parcel.writeLong(endDate.timeInMillis)
         parcel.writeString(title)
         parcel.writeString(message)
     }
