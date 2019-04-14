@@ -6,14 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.github.zeroicq.plannerator.R
 import com.github.zeroicq.plannerator.databinding.FragmentDayBinding
 import com.github.zeroicq.plannerator.mvp.presenters.DayPresenter
 import com.github.zeroicq.plannerator.mvp.views.DayView
-import com.github.zeroicq.plannerator.util.getDayWithMonthWithYeatString
-import com.github.zeroicq.plannerator.util.getMonthWithYearString
+import com.github.zeroicq.plannerator.util.getDayWithMonthWithYearString
 
 class DayFragment: BaseFragment(), DayView {
     enum class BUNDLE_KEYS { DATE }
@@ -35,7 +33,7 @@ class DayFragment: BaseFragment(), DayView {
         if (dateInMillis != null) {
             date.timeInMillis  = dateInMillis
         }
-        setToolBarText(getDayWithMonthWithYeatString(context!!, date))
+        setToolBarText(getDayWithMonthWithYearString(context!!, date))
         binding.dayView.eventClickListener = { it -> presenter.onEventClick(it)}
         binding.dayView.updateData(presenter.getDayModel(date))
         return  binding.root

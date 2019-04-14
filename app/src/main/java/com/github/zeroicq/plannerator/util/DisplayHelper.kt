@@ -10,7 +10,7 @@ fun getMonthWithYearString(ctxt: Context, date: GregorianCalendar): String {
     return "${ctxt.getText(monthRes(month))}, $year"
 }
 
-fun getDayWithMonthWithYeatString(ctxt: Context, date: GregorianCalendar): String {
+fun getDayWithMonthWithYearString(ctxt: Context, date: GregorianCalendar): String {
     val day = date.get(GregorianCalendar.DAY_OF_MONTH)
     val month = date.get(GregorianCalendar.MONTH)
     val year  = date.get(GregorianCalendar.YEAR)

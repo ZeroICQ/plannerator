@@ -4,18 +4,26 @@ import android.icu.util.Calendar
 import android.icu.util.GregorianCalendar
 import com.github.zeroicq.plannerator.mvp.models.EventModel
 import com.github.zeroicq.plannerator.util.copyGregorian
+import com.mooveit.library.Fakeit
+import com.thedeanda.lorem.Lorem
+import com.thedeanda.lorem.LoremIpsum
+import java.util.*
+import kotlin.collections.ArrayList
 
 class StorageMockup {
     private val events = ArrayList<EventModel>()
 
     init {
+        Fakeit.init()
+        val lorem = LoremIpsum.getInstance()
         val today = GregorianCalendar.getInstance()
-        for (i in 1..3) {
+
+        for (i in 1..5) {
             val d = (today as GregorianCalendar).copyGregorian().apply {
                 set(GregorianCalendar.HOUR, i)
             }
 
-            events.add(EventModel(d, "today at $i"))
+            events.add(EventModel(d, lorem.getTitle(1, 4), Fakeit.rickAndMorty().quote()))
         }
 
         today.add(GregorianCalendar.DAY_OF_MONTH, -1)
@@ -25,9 +33,10 @@ class StorageMockup {
                 set(GregorianCalendar.HOUR, i+10)
             }
 
-            events.add(EventModel(d, "$i first short"))
-            events.add(EventModel(d, "$i second meeeeeeeedium"))
-            events.add(EventModel(d, "$i third longlonglonglonglonglonglonglonglonglonglonglonglong"))
+            for (j in 1..3) {
+                events.add(EventModel(d, lorem.getTitle(1, 4), Fakeit.rickAndMorty().quote()))
+            }
+
         }
 
     }

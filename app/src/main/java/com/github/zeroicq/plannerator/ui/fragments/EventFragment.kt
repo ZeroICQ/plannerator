@@ -11,9 +11,11 @@ import com.github.zeroicq.plannerator.databinding.FragmentEventBinding
 import com.github.zeroicq.plannerator.mvp.models.EventModel
 import com.github.zeroicq.plannerator.mvp.presenters.EventPresenter
 import com.github.zeroicq.plannerator.mvp.views.EventView
+import com.github.zeroicq.plannerator.util.getDayWithMonthWithYearString
 
 class EventFragment : BaseFragment(), EventView {
     enum class BUNDLE_KEYS {EVENT}
+
     private lateinit var binding: FragmentEventBinding
     //
     @InjectPresenter
@@ -22,8 +24,11 @@ class EventFragment : BaseFragment(), EventView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event, container, false)
 
-        val e = arguments?.getParcelable<EventModel>(BUNDLE_KEYS.EVENT.toString())
+        val event = arguments!!.getParcelable<EventModel>(BUNDLE_KEYS.EVENT.toString())
 
+        binding.dateText.text = getDayWithMonthWithYearString(context!!, event.date)
+        binding.eventTitle.text = event.title
+        binding.eventMessage.text = event.message
         return  binding.root
     }
 }

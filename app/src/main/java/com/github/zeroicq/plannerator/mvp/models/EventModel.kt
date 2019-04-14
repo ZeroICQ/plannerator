@@ -13,8 +13,7 @@ class EventModel (val date: GregorianCalendar, val title: String, val message: S
         } as GregorianCalendar),
         parcel.readString(),
         parcel.readString()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(date.timeInMillis)
