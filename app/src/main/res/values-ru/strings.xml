@@ -35,4 +35,6 @@
 
     <string name="event_title_label">Заголовок</string>
     <string name="event_message_label">Описание</string>
+
+    <string name="save_event">Сохранить</string>
 </resources>

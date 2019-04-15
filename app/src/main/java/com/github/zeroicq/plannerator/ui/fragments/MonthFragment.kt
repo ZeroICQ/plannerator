@@ -16,6 +16,14 @@ import com.github.zeroicq.plannerator.mvp.views.MonthView
 import com.github.zeroicq.plannerator.ui.adapters.MonthsAdapter
 import com.github.zeroicq.plannerator.ui.layoutManagers.MonthByDayLayoutManager
 import com.github.zeroicq.plannerator.ui.listeners.SnapChangeListener
+import android.view.WindowManager
+import android.widget.EditText
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.support.v4.content.ContextCompat.getSystemService
+import android.app.Activity
+import android.content.Context
+import android.view.inputmethod.InputMethodManager
+
 
 class MonthFragment : BaseFragment(), MonthView {
     private lateinit var binding: FragmentMonthBinding
@@ -53,5 +61,10 @@ class MonthFragment : BaseFragment(), MonthView {
     override fun onRecyclerPrev(amount: Int) {
         binding.monthRecycler.adapter?.notifyItemRangeRemoved(presenter.loadedMonths.size-amount, amount)
         binding.monthRecycler.adapter?.notifyItemRangeInserted(0, amount)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.loadMonths()
     }
 }

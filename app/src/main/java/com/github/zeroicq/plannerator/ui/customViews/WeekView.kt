@@ -157,7 +157,7 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
         for ((i, day) in currWeek.days.withIndex()) {
             dayTitleCells[i].setData(day)
 
-            val sortedEvents = day.events.sortedWith(compareBy({it.startDate.get(GregorianCalendar.HOUR)},
+            val sortedEvents = day.events.sortedWith(compareBy({it.startDate.get(GregorianCalendar.HOUR_OF_DAY)},
                                                                {it.startDate.get(GregorianCalendar.MINUTE)},
                                                                {it.startDate.get(GregorianCalendar.SECOND)}))
 
@@ -167,7 +167,7 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
             }
 
             for (e in sortedEvents) {
-                val curCell = dayCells[i][e.startDate.get(GregorianCalendar.HOUR)]
+                val curCell = dayCells[i][e.startDate.get(GregorianCalendar.HOUR_OF_DAY)]
                 val eventView = EventPreviewView(context, e)
                 eventView.setOnClickListener{ onEventClick(e) }
                 curCell.layout.addView(eventView)

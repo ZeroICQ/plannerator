@@ -18,7 +18,7 @@ class StorageMockup {
 
         for (i in 1..5) {
             val start = (today as GregorianCalendar).copyGregorian().apply {
-                set(GregorianCalendar.HOUR, i)
+                set(GregorianCalendar.HOUR_OF_DAY, i)
             }
 
             val end = start.copyGregorian().apply { add(GregorianCalendar.HOUR_OF_DAY, 1) }
@@ -30,7 +30,7 @@ class StorageMockup {
 
         for (i in 1..3) {
             val start = (today as GregorianCalendar).copyGregorian().apply {
-                set(GregorianCalendar.HOUR, i+10)
+                set(GregorianCalendar.HOUR_OF_DAY, i+10)
             }
 
             val end = start.copyGregorian().apply { add(GregorianCalendar.HOUR_OF_DAY, 1) }

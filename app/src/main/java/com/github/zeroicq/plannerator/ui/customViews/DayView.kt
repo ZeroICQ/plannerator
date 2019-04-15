@@ -96,13 +96,13 @@ class DayView(ctxt : Context, attr: AttributeSet?) : ScrollView(ctxt, attr) {
     }
 
     fun updateData(currDay: DayModel) {
-        val sortedEvents = currDay.events.sortedWith(compareBy({it.startDate.get(GregorianCalendar.HOUR)},
+        val sortedEvents = currDay.events.sortedWith(compareBy({it.startDate.get(GregorianCalendar.HOUR_OF_DAY)},
             {it.startDate.get(GregorianCalendar.MINUTE)},
             {it.startDate.get(GregorianCalendar.SECOND)}))
 
 
         for (e in sortedEvents) {
-            val currCell = hourCells[e.startDate.get(GregorianCalendar.HOUR)]
+            val currCell = hourCells[e.startDate.get(GregorianCalendar.HOUR_OF_DAY)]
             val eventView = EventPreviewView(context, e)
             eventView.minimumHeight = 100
             eventView.setOnClickListener{ onEventClick((e)) }

@@ -11,6 +11,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.github.zeroicq.plannerator.R
@@ -33,6 +34,7 @@ open class CreateEventFragment: MvpAppCompatFragment(), CreateEventView {
 
     @InjectPresenter
     lateinit var presenter: CreateEventPresenter
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_create_event, container, false)
@@ -68,6 +70,9 @@ open class CreateEventFragment: MvpAppCompatFragment(), CreateEventView {
 
         binding.startTimeTextView.setOnClickListener{ openTimePickerDialog(START_TIME_REQUEST) }
         binding.endTimeTextView.setOnClickListener{ openTimePickerDialog(END_TIME_REQUEST) }
+
+        // saveEvent button
+        binding.saveButton.setOnClickListener({view ->  hideKeyboard(activity!!); presenter.saveEvent()})
         return binding.root
     }
 
@@ -133,5 +138,17 @@ open class CreateEventFragment: MvpAppCompatFragment(), CreateEventView {
         binding.endDateTextView.text = dateFormat.format(em.endDate)
         binding.endTimeTextView.text = timeFormat.format(em.endDate)
     }
+
+    fun hideKeyboard(activity: Activity) {
+        val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        //Find the currently focused view, so we can grab the correct window token from it.
+        var view = activity.currentFocus
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = View(activity)
+        }
+        imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+    }
+
 
 }

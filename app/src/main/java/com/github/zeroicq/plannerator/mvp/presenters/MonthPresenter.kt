@@ -41,7 +41,7 @@ class MonthPresenter: MvpPresenter<MonthView>() {
         loadMonths()
     }
 
-    private fun loadMonths() {
+    fun loadMonths() {
         val iterateMonth = (GregorianCalendar.getInstance() as GregorianCalendar).copyGregorian().apply {
             add(GregorianCalendar.MONTH, -curMonthPos)
         }

@@ -45,4 +45,6 @@
     <string name="event_title_label">Title</string>
     <string name="event_message_label">Message</string>
 
+    <string name="save_event">Save</string>
+
 </resources>

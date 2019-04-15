@@ -110,6 +110,15 @@
 
         </android.support.v7.widget.LinearLayoutCompat>
 
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/saveButton"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/eventEndLayout"
+            android:background="@color/highlightDay"
+            android:text="@string/save_event"/>
+
 
     </android.support.constraint.ConstraintLayout>
 </layout>
