@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil
 import android.icu.text.SimpleDateFormat
 import android.icu.util.GregorianCalendar
 import android.os.Bundle
+import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
@@ -38,9 +39,27 @@ open class CreateEventFragment: MvpAppCompatFragment(), CreateEventView {
 
         val date = arguments!!.getGregorianCalendar(BUNDLE_KEYS.DATE.toString())
         presenter.setInitialTimeInterval(date)
+
         // edittexts listenetes
-        //todo: cotinue from here
-        binding.eventTitle.addTextChangedListener(TextWatcher)
+        binding.eventTitle.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {/* do nothing */}
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {/* do nothing */}
+
+            override fun afterTextChanged(s: Editable?) {
+                presenter.event.title = s.toString()
+                presenter.updateEvent()
+            }
+        })
+
+        binding.eventMessage.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {/* do nothing */}
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {/* do nothing */}
+
+            override fun afterTextChanged(s: Editable?) {
+                presenter.event.message = s.toString()
+                presenter.updateEvent()
+            }
+        })
 
 
         // pickers listeners

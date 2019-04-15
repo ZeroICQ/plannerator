@@ -5,10 +5,10 @@ import android.os.Parcel
 import android.os.Parcelable
 
 class EventModel(
-    val startDate: GregorianCalendar,
-    val endDate: GregorianCalendar,
-    val title: String = "",
-    val message: String = ""
+    var startDate: GregorianCalendar,
+    var endDate: GregorianCalendar,
+    var title: String = "",
+    var message: String = ""
 
     ): Parcelable {
 
