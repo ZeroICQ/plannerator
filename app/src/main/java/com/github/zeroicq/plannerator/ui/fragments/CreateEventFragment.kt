@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil
 import android.icu.text.SimpleDateFormat
 import android.icu.util.GregorianCalendar
 import android.os.Bundle
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,7 +38,12 @@ open class CreateEventFragment: MvpAppCompatFragment(), CreateEventView {
 
         val date = arguments!!.getGregorianCalendar(BUNDLE_KEYS.DATE.toString())
         presenter.setInitialTimeInterval(date)
+        // edittexts listenetes
+        //todo: cotinue from here
+        binding.eventTitle.addTextChangedListener(TextWatcher)
 
+
+        // pickers listeners
         binding.startDateTextView.setOnClickListener{ openDatePickerDialog(START_DATE_REQUEST) }
         binding.endDateTextView.setOnClickListener{ openDatePickerDialog(END_DATE_REQUEST) }
 
