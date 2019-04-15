@@ -41,7 +41,8 @@ open class CreateEventFragment: MvpAppCompatFragment(), CreateEventView {
         binding.startDateTextView.setOnClickListener{ openDatePickerDialog(START_DATE_REQUEST) }
         binding.endDateTextView.setOnClickListener{ openDatePickerDialog(END_DATE_REQUEST) }
 
-        binding.startTimeTextView.setOnClickListener{ TimePickerFragment().show(fragmentManager, "datePicker") }
+        binding.startTimeTextView.setOnClickListener{ openTimePickerDialog(START_TIME_REQUEST) }
+        binding.endTimeTextView.setOnClickListener{ openTimePickerDialog(END_TIME_REQUEST) }
         return binding.root
     }
 
@@ -49,7 +50,12 @@ open class CreateEventFragment: MvpAppCompatFragment(), CreateEventView {
         val fragment = DatePickerFragment()
         fragment.setTargetFragment(this, requestCode)
         fragment.show(fragmentManager, "DatePicker")
-//        DatePickerFragment().show(fragmentManager, "datePicker")
+    }
+
+    private fun openTimePickerDialog(requestCode: Int) {
+        val fragment = TimePickerFragment()
+        fragment.setTargetFragment(this, requestCode)
+        fragment.show(fragmentManager, "TimePicker")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -60,6 +66,9 @@ open class CreateEventFragment: MvpAppCompatFragment(), CreateEventView {
             val year = data?.getIntExtra(DatePickerFragment.INTENT_KEYS.YEAR.toString(), -1)
             val month = data?.getIntExtra(DatePickerFragment.INTENT_KEYS.MONTH.toString(), -1)
             val dayOfMonth = data?.getIntExtra(DatePickerFragment.INTENT_KEYS.DAY_OF_MONTH.toString(), -1)
+
+            val hourOfDay = data?.getIntExtra(TimePickerFragment.INTENT_KEYS.HOUR_OF_DAY.toString(), -1)
+            val minute = data?.getIntExtra(TimePickerFragment.INTENT_KEYS.MINUTE.toString(), -1)
 
             when (requestCode) {
                 START_DATE_REQUEST -> {
@@ -74,6 +83,15 @@ open class CreateEventFragment: MvpAppCompatFragment(), CreateEventView {
                     presenter.event.endDate.set(GregorianCalendar.DAY_OF_MONTH, dayOfMonth!!)
                 }
 
+                START_TIME_REQUEST -> {
+                    presenter.event.startDate.set(GregorianCalendar.HOUR_OF_DAY, hourOfDay!!)
+                    presenter.event.startDate.set(GregorianCalendar.MINUTE, minute!!)
+                }
+
+                END_TIME_REQUEST -> {
+                    presenter.event.endDate.set(GregorianCalendar.HOUR_OF_DAY, hourOfDay!!)
+                    presenter.event.endDate.set(GregorianCalendar.MINUTE, minute!!)
+                }
             }
 
             presenter.updateEvent()
