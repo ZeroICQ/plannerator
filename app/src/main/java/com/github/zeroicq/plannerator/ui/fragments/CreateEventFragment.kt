@@ -40,10 +40,10 @@ open class CreateEventFragment: MvpAppCompatFragment(), CreateEventView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_create_event, container, false)
 
-        val date = arguments!!.getGregorianCalendar(BUNDLE_KEYS.DATE.toString())
+        val date = arguments?.getGregorianCalendar(BUNDLE_KEYS.DATE.toString()) ?: (GregorianCalendar.getInstance() as GregorianCalendar)
         presenter.setInitialTimeInterval(date)
 
-        // edittexts listenetes
+        // edittexts listeners
         binding.eventTitle.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {/* do nothing */}
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {/* do nothing */}
@@ -159,6 +159,4 @@ open class CreateEventFragment: MvpAppCompatFragment(), CreateEventView {
         }
         imm.hideSoftInputFromWindow(view!!.windowToken, 0)
     }
-
-
 }

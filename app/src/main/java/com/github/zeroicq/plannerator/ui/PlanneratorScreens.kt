@@ -32,13 +32,15 @@ class DayScreen(val date: GregorianCalendar? = null): SupportAppScreen() {
     }
 }
 
-class CreateEventScreen(val date: GregorianCalendar): SupportAppScreen() {
+class CreateEventScreen(val date: GregorianCalendar? = null): SupportAppScreen() {
     override fun getFragment(): Fragment {
         val f = CreateEventFragment()
-        val bundle = Bundle()
-        bundle.putGregorianCalendar(CreateEventFragment.BUNDLE_KEYS.DATE.toString(), date)
-        f.arguments = bundle
 
+        if (date != null) {
+            val bundle = Bundle()
+            bundle.putGregorianCalendar(CreateEventFragment.BUNDLE_KEYS.DATE.toString(), date)
+            f.arguments = bundle
+        }
         return f
     }
 

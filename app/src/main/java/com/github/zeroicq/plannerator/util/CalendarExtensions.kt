@@ -8,7 +8,10 @@ fun GregorianCalendar.copyGregorian() : GregorianCalendar {
     return GregorianCalendar(
         this.get(GregorianCalendar.YEAR),
         this.get(GregorianCalendar.MONTH),
-        this.get(GregorianCalendar.DAY_OF_MONTH)
+        this.get(GregorianCalendar.DAY_OF_MONTH),
+        this.get(GregorianCalendar.HOUR_OF_DAY),
+        this.get(GregorianCalendar.MINUTE),
+        this.get(GregorianCalendar.SECOND)
     )
 }
 
