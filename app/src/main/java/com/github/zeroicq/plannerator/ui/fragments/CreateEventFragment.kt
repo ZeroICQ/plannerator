@@ -20,6 +20,7 @@ import com.github.zeroicq.plannerator.mvp.models.EventModel
 import com.github.zeroicq.plannerator.mvp.presenters.CreateEventPresenter
 import com.github.zeroicq.plannerator.mvp.views.CreateEventView
 import com.github.zeroicq.plannerator.util.getGregorianCalendar
+import com.github.zeroicq.plannerator.util.putGregorianCalendar
 
 open class CreateEventFragment: MvpAppCompatFragment(), CreateEventView {
     val START_DATE_REQUEST = 1
@@ -63,27 +64,36 @@ open class CreateEventFragment: MvpAppCompatFragment(), CreateEventView {
             }
         })
 
-
         // pickers listeners
-        binding.startDateTextView.setOnClickListener{ openDatePickerDialog(START_DATE_REQUEST) }
-        binding.endDateTextView.setOnClickListener{ openDatePickerDialog(END_DATE_REQUEST) }
+        binding.startDateTextView.setOnClickListener{ openDatePickerDialog(START_DATE_REQUEST, presenter.event.startDate) }
+        binding.endDateTextView.setOnClickListener{ openDatePickerDialog(END_DATE_REQUEST, presenter.event.endDate) }
 
-        binding.startTimeTextView.setOnClickListener{ openTimePickerDialog(START_TIME_REQUEST) }
-        binding.endTimeTextView.setOnClickListener{ openTimePickerDialog(END_TIME_REQUEST) }
+        binding.startTimeTextView.setOnClickListener{ openTimePickerDialog(START_TIME_REQUEST, presenter.event.startDate) }
+        binding.endTimeTextView.setOnClickListener{ openTimePickerDialog(END_TIME_REQUEST, presenter.event.endDate) }
 
         // saveEvent button
-        binding.saveButton.setOnClickListener({view ->  hideKeyboard(activity!!); presenter.saveEvent()})
+        binding.saveButton.setOnClickListener { view ->  hideKeyboard(activity!!); presenter.saveEvent()}
         return binding.root
     }
 
-    private fun openDatePickerDialog(requestCode: Int) {
+    private fun openDatePickerDialog(requestCode: Int, date: GregorianCalendar) {
         val fragment = DatePickerFragment()
+
+        val bundle = Bundle()
+        bundle.putGregorianCalendar(DatePickerFragment.BUNDLE_KEYS.DATE.toString(), date)
+        fragment.arguments = bundle
+
         fragment.setTargetFragment(this, requestCode)
         fragment.show(fragmentManager, "DatePicker")
     }
 
-    private fun openTimePickerDialog(requestCode: Int) {
+    private fun openTimePickerDialog(requestCode: Int, date: GregorianCalendar) {
         val fragment = TimePickerFragment()
+
+        val bundle = Bundle()
+        bundle.putGregorianCalendar(TimePickerFragment.BUNDLE_KEYS.DATE.toString(), date)
+        fragment.arguments = bundle
+
         fragment.setTargetFragment(this, requestCode)
         fragment.show(fragmentManager, "TimePicker")
     }
