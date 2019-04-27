@@ -17,21 +17,13 @@ class MonthsAdapter(val monthPresenter : MonthPresenter): RecyclerView.Adapter<M
     override fun getItemCount() = monthPresenter.loadedMonths.size - 2
 
     override fun onBindViewHolder(holder: MonthHolder, pos: Int) {
-//        if (monthPresenter.loadedWeeks.size - pos <)
-
         val prevMonth = monthPresenter.loadedMonths[pos]
         val currMonth = monthPresenter.loadedMonths[pos+1]
         val nextMonth = monthPresenter.loadedMonths[pos+2]
-//        if (currMonth.date.get(GregorianCalendar.MONTH) == GregorianCalendar.JUNE) {
-//            Log.d("s", "s")
-//        }
         holder.setMonths(prevMonth, currMonth, nextMonth)
-//        notifyItemChanged(pos)
     }
 
     class MonthHolder(v: MonthView) : RecyclerView.ViewHolder(v) {
-//        var binding: MonthByDayLayoutManager = DataBindingUtil.bind(v)!!
-
         fun setMonths(prevMonth : MonthModel, currMonth: MonthModel, nextMonth: MonthModel) {
             (itemView as MonthView).updateData(prevMonth, currMonth, nextMonth)
         }

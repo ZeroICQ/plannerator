@@ -9,6 +9,7 @@ import com.github.zeroicq.plannerator.mvp.models.EventModel
 import com.github.zeroicq.plannerator.mvp.models.WeekModel
 import com.github.zeroicq.plannerator.mvp.views.WeekView
 import com.github.zeroicq.plannerator.repository.WeekTestRepository
+import com.github.zeroicq.plannerator.ui.DayScreen
 import com.github.zeroicq.plannerator.ui.EventScreen
 import com.github.zeroicq.plannerator.util.copyGregorian
 import com.github.zeroicq.plannerator.util.getMonthWithYearString
@@ -83,6 +84,10 @@ class WeekPresenter: MvpPresenter<WeekView>() {
     // todo: pass event data
     fun onEventClick(it: EventModel) {
         app.router.navigateTo(EventScreen(it))
+    }
+
+    fun onHourCellClick(date: GregorianCalendar) {
+        app.router.navigateTo(DayScreen(date))
     }
 
 

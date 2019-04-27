@@ -24,6 +24,8 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
     private val dayCells = Array<ArrayList<HourCell>>(7) { ArrayList() }
     private val dayTitleCells = ArrayList<TitleCell>()
 
+    var hourClickListener: ((GregorianCalendar)->Unit)? = null
+
     var eventClickListener: ((EventModel)->Unit)? = null
 
     init {
@@ -78,7 +80,6 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
                 hourCellLayout.minimumHeight = 200
                 hourCellLayout.orientation = LinearLayout.VERTICAL
 
-
                 if (col == 1) {
                     hourCellLayout.gravity = Gravity.END or Gravity.BOTTOM
 //                    hourCellLayout.setPadding(0, 0, 5, 0)
@@ -91,10 +92,9 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
                     hourCellLayout.addView(hourTitleTextView)
                 }
                 else {
-
                     hourCellLayout.gravity = Gravity.CENTER_HORIZONTAL and Gravity.TOP
-
                     val cell = HourCell(hourCellLayout)
+                    hourCellLayout.setOnClickListener { onHourCellClick(cell.date) }
                     dayCells[col-2].add(cell)
                 }
                 val lp = GridLayout.LayoutParams(
@@ -113,6 +113,11 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
         }
         scrollView.addView(gridView)
         addView(scrollView)
+    }
+
+    private fun onHourCellClick(date: GregorianCalendar?) {
+        if (date!= null)
+            hourClickListener?.invoke(date)
     }
 
     private fun addDayOfWeekTitle(ctxt: Context, month: Int?) {
@@ -162,6 +167,7 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
                                                                {it.startDate.get(GregorianCalendar.SECOND)}))
 
             for (cell in dayCells[i]) {
+                cell.date = day.date
                 cell.layout.removeAllViewsInLayout()
                 cell.layout.requestLayout()
             }
@@ -176,9 +182,10 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
         }
     }
 
-    class HourCell(val layout: ViewGroup) {
-//        fun setData(dayModel: DayModel) {
-//        }
+    class HourCell(val layout: ViewGroup, var date: GregorianCalendar? = null) {
+        fun setData(date: GregorianCalendar) {
+            this.date = date
+        }
     }
 
     class TitleCell(val dayNumberText : AppCompatTextView) {

@@ -10,6 +10,7 @@ class WeeksAdapter(val weekPreseneter : WeekPresenter): RecyclerView.Adapter<Wee
     override fun onCreateViewHolder(parent: ViewGroup, pos: Int): WeekHolder {
         val v = WeekView(parent.context)
         v.eventClickListener = { it -> weekPreseneter.onEventClick(it) }
+        v.hourClickListener = { it-> weekPreseneter.onHourCellClick(it)}
         return WeekHolder(v)
     }
 

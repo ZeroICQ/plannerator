@@ -65,9 +65,7 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
                     GridLayout.spec(GridLayout.UNDEFINED, 1.0f),
                     GridLayout.spec(GridLayout.UNDEFINED, 1.0f)).apply {
                         setGravity(Gravity.FILL)
-//                        rowCount = i
-//                        columnCount = j
-                }
+                    }
                 constraintLayout.layoutParams = lp
                 constraintLayout.setBackgroundResource(R.drawable.day_cell_border)
                 constraintLayout.gravity = Gravity.CENTER_HORIZONTAL
