@@ -23,6 +23,7 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
     private val daysOfWeekTitles: GridLayout
     private val dayCells = Array<ArrayList<HourCell>>(7) { ArrayList() }
     private val dayTitleCells = ArrayList<TitleCell>()
+    private val gridScrollView: ScrollView
 
     var hourClickListener: ((GregorianCalendar)->Unit)? = null
 
@@ -111,6 +112,7 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
                 gridView.addView(hourCellLayout)
             }
         }
+        gridScrollView = scrollView
         scrollView.addView(gridView)
         addView(scrollView)
     }
@@ -167,10 +169,11 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
                                                                {it.startDate.get(GregorianCalendar.SECOND)}))
 
             for (cell in dayCells[i]) {
-                cell.date = day.date
+                cell.setData(day.date)
                 cell.layout.removeAllViewsInLayout()
                 cell.layout.requestLayout()
             }
+
 
             for (e in sortedEvents) {
                 val curCell = dayCells[i][e.startDate.get(GregorianCalendar.HOUR_OF_DAY)]
@@ -178,6 +181,8 @@ class WeekView(ctxt: Context) : LinearLayoutCompat(ctxt) {
                 eventView.setOnClickListener{ onEventClick(e) }
                 curCell.layout.addView(eventView)
             }
+
+            gridScrollView.scrollY = 0
 
         }
     }
