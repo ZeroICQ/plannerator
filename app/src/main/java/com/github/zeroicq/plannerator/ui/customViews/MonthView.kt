@@ -42,7 +42,7 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
 
             constraintLayout.layoutParams = lp
 
-            constraintLayout.setBackgroundResource(R.drawable.day_cell_border)
+//            constraintLayout.setBackgroundResource(R.drawable.day_cell_border)
             constraintLayout.gravity = Gravity.CENTER_HORIZONTAL
             constraintLayout.setBackgroundResource(R.drawable.day_cell_border)
 
@@ -121,7 +121,7 @@ class MonthView(ctxt: Context) : GridLayout(ctxt) {
             if (dayModel.events.size > 0)
                 layout.setBackgroundColor(ctxt.getColor(R.color.highlightDay))
             else
-                layout.setBackgroundResource(0)
+                layout.setBackgroundResource(R.drawable.day_cell_border)
 
             // decorate today
             if ((GregorianCalendar.getInstance() as GregorianCalendar).isSameDay(dayModel.date))
