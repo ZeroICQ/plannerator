@@ -27,7 +27,11 @@ class WeekFragment : BaseFragment(), WeekView {
     lateinit var presenter: WeekPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_week, container, false)
+        showFab = true
+        activityView.setFabOnclickListener { view -> presenter.onCreateEvent() }
+
 
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(binding.weekRecycler)

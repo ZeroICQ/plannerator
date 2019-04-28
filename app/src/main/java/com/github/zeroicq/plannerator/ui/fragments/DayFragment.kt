@@ -18,24 +18,24 @@ class DayFragment: BaseFragment(), DayView {
 
     private lateinit var binding: FragmentDayBinding
 
-    //todo move to presenter?
-    private lateinit var date: GregorianCalendar
-//
     @InjectPresenter
     lateinit var presenter: DayPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_day, container, false)
+        showFab = true
+        activityView.setFabOnclickListener { view -> presenter.onCreateEvent() }
 
-        date = (GregorianCalendar.getInstance() as GregorianCalendar)
+        presenter.date = (GregorianCalendar.getInstance() as GregorianCalendar)
 
         val dateInMillis = arguments?.getLong(BUNDLE_KEYS.DATE.toString())
         if (dateInMillis != null) {
-            date.timeInMillis  = dateInMillis
+            presenter.date.timeInMillis  = dateInMillis
         }
-        setToolBarText(getDayWithMonthWithYearString(context!!, date))
+        setToolBarText(getDayWithMonthWithYearString(context!!, presenter.date))
         binding.dayView.eventClickListener = { it -> presenter.onEventClick(it)}
-        binding.dayView.updateData(presenter.getDayModel(date))
+        binding.dayView.updateData(presenter.getDayModel(presenter.date))
         return  binding.root
     }
 }

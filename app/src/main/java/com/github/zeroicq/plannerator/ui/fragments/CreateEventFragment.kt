@@ -22,7 +22,7 @@ import com.github.zeroicq.plannerator.mvp.views.CreateEventView
 import com.github.zeroicq.plannerator.util.getGregorianCalendar
 import com.github.zeroicq.plannerator.util.putGregorianCalendar
 
-open class CreateEventFragment: MvpAppCompatFragment(), CreateEventView {
+open class CreateEventFragment: BaseFragment(), CreateEventView {
     val START_DATE_REQUEST = 1
     val END_DATE_REQUEST = 2
 
@@ -38,6 +38,7 @@ open class CreateEventFragment: MvpAppCompatFragment(), CreateEventView {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_create_event, container, false)
 
         val date = arguments?.getGregorianCalendar(BUNDLE_KEYS.DATE.toString()) ?: (GregorianCalendar.getInstance() as GregorianCalendar)

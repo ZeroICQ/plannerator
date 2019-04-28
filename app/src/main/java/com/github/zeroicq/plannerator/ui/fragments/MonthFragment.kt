@@ -16,13 +16,6 @@ import com.github.zeroicq.plannerator.mvp.views.MonthView
 import com.github.zeroicq.plannerator.ui.adapters.MonthsAdapter
 import com.github.zeroicq.plannerator.ui.layoutManagers.MonthByDayLayoutManager
 import com.github.zeroicq.plannerator.ui.listeners.SnapChangeListener
-import android.view.WindowManager
-import android.widget.EditText
-import android.content.Context.INPUT_METHOD_SERVICE
-import android.support.v4.content.ContextCompat.getSystemService
-import android.app.Activity
-import android.content.Context
-import android.view.inputmethod.InputMethodManager
 
 
 class MonthFragment : BaseFragment(), MonthView {
@@ -32,12 +25,13 @@ class MonthFragment : BaseFragment(), MonthView {
     lateinit var presenter: MonthPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+        showFab = true
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_month, container, false)
         //recycler
         val snapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(binding.monthRecycler)
-        // todo: pass current date
-        binding.fab.setOnClickListener { view -> presenter.onCreateEvent() }
+        activityView.setFabOnclickListener { view -> presenter.onCreateEvent() }
 //
         binding.monthRecycler.apply {
             adapter = MonthsAdapter(presenter)

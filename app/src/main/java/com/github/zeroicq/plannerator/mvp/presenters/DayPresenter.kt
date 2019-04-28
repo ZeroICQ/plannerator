@@ -8,6 +8,7 @@ import com.github.zeroicq.plannerator.mvp.models.EventModel
 import com.github.zeroicq.plannerator.mvp.views.DayView
 import com.github.zeroicq.plannerator.repository.DayTestRepository
 import com.github.zeroicq.plannerator.repository.MonthTestRepository
+import com.github.zeroicq.plannerator.ui.CreateEventScreen
 import com.github.zeroicq.plannerator.ui.EventScreen
 import javax.inject.Inject
 
@@ -20,6 +21,8 @@ class DayPresenter: MvpPresenter<DayView>() {
     @Inject
     lateinit var dayRepository : DayTestRepository
 
+    lateinit var date: GregorianCalendar
+
     init {
         PlanneratorApplication.graph.inject(this)
     }
@@ -29,5 +32,9 @@ class DayPresenter: MvpPresenter<DayView>() {
     //todo: pass event data
     fun onEventClick(it: EventModel) {
         app.router.navigateTo(EventScreen(it))
+    }
+
+    fun onCreateEvent() {
+        app.router.navigateTo(CreateEventScreen(date))
     }
 }

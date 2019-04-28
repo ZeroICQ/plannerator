@@ -8,6 +8,7 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.github.zeroicq.plannerator.R
@@ -25,7 +26,7 @@ class MainActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSele
     @InjectPresenter
     lateinit var presenter: MainPresenter
 
-    private val navigator = SupportAppNavigator(this, R.id.main_container).apply {
+    private val navigator = SupportAppNavigator(this, R.id.mainContainer).apply {
 
     }
 
@@ -111,7 +112,13 @@ class MainActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSele
             .setAction("Action", null).show()
     }
 
+    override fun setFabOnclickListener(listener: (View) -> Unit) {
+        binding.createEventButton.setOnClickListener(listener)
+    }
 
+    override fun setShowCreateEventButton(show: Boolean) {
+        if (show) binding.createEventButton.show() else binding.createEventButton.hide()
+    }
 
     override fun onResumeFragments() {
         super.onResumeFragments()

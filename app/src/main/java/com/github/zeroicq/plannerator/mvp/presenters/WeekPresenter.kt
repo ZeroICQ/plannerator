@@ -9,6 +9,7 @@ import com.github.zeroicq.plannerator.mvp.models.EventModel
 import com.github.zeroicq.plannerator.mvp.models.WeekModel
 import com.github.zeroicq.plannerator.mvp.views.WeekView
 import com.github.zeroicq.plannerator.repository.WeekTestRepository
+import com.github.zeroicq.plannerator.ui.CreateEventScreen
 import com.github.zeroicq.plannerator.ui.DayScreen
 import com.github.zeroicq.plannerator.ui.EventScreen
 import com.github.zeroicq.plannerator.util.copyGregorian
@@ -90,5 +91,8 @@ class WeekPresenter: MvpPresenter<WeekView>() {
         app.router.navigateTo(DayScreen(date))
     }
 
+    fun onCreateEvent() {
+        app.router.navigateTo(CreateEventScreen(loadedWeeks[curWeekPos].date))
+    }
 
 }
