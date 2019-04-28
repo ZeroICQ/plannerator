@@ -46,5 +46,7 @@
     <string name="event_message_label">Message</string>
 
     <string name="save_event">Save</string>
+    <string name="edit_event">Edit</string>
+    <string name="delete">Delete</string>
 
 </resources>

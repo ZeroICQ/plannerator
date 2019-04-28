@@ -6,4 +6,5 @@
     <color name="lightGrey">#DDDDDD</color>
 
     <color name="highlightDay">#FFC97F</color>
+    <color name="red">#F44336</color>
 </resources>

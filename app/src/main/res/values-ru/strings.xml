@@ -37,4 +37,6 @@
     <string name="event_message_label">Описание</string>
 
     <string name="save_event">Сохранить</string>
+    <string name="edit_event">Редактировать</string>
+    <string name="delete">Удалить</string>
 </resources>

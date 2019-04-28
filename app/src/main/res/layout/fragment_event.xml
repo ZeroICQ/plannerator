@@ -6,13 +6,9 @@
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="4sp">
 
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/dateText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="22 may 2019, 22:13" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/eventTitle"
@@ -22,10 +18,35 @@
             tools:text="Event title"/>
 
         <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/dateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="22 may 2019, 22:13" />
+
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/eventMessage"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             tools:text="Event message"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/editButton"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="@string/edit_event"
+            android:layout_marginTop="8sp"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/deleteButton"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/red"
+            android:text="@string/delete"
+            android:layout_marginTop="2sp"/>
+
 
     </android.support.v7.widget.LinearLayoutCompat>
 
