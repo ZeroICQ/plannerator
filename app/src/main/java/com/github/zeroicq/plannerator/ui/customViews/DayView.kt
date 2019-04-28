@@ -103,7 +103,7 @@ class DayView(ctxt : Context, attr: AttributeSet?) : ScrollView(ctxt, attr) {
 
         for (e in sortedEvents) {
             val currCell = hourCells[e.startDate.get(GregorianCalendar.HOUR_OF_DAY)]
-            val eventView = EventPreviewView(context, e)
+            val eventView = EventPreviewView(context, e, true)
             eventView.minimumHeight = 100
             eventView.setOnClickListener{ onEventClick((e)) }
             currCell.layout.addView(eventView)
